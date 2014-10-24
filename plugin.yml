@@ -1,0 +1,14 @@
+name: RentalRooms
+author: JC The Pants
+main: com.jcwhatever.bukkit.rental.RentalRooms
+version: 0.4
+depend: [jcGenerics]
+commands:
+    rent:
+        description: Base command for Rental Rooms
+        usage: |
+            ERROR!
+    rental:
+        description: Base command for Rental Rooms
+        usage: |
+            ERROR!
