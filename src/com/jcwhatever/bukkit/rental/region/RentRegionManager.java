@@ -5,7 +5,7 @@ import com.jcwhatever.bukkit.generic.performance.SingleCache;
 import com.jcwhatever.bukkit.generic.regions.ReadOnlyRegion;
 import com.jcwhatever.bukkit.generic.storage.IDataNode;
 import com.jcwhatever.bukkit.rental.Tenant;
-import com.sun.istack.internal.Nullable;
+import javax.annotation.Nullable;
 import org.bukkit.Location;
 import org.bukkit.World;
 
