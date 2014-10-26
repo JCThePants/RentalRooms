@@ -56,10 +56,10 @@ public class RentalRooms extends GenericsPlugin {
 
     @Override
     protected void onEnablePlugin() {
-        _region = new RentRegionManager(getSettings().getNode("regions"));
+        _region = new RentRegionManager(getDataNode().getNode("regions"));
         _listener = new GlobalListener(_region);
-        _signManager = new SignManager(this, getSettings().getNode("signs.rental"));
-        _billCollector = new BillCollector(this.getSettings().getNode("econ"));
+        _signManager = new SignManager(this, getDataNode().getNode("signs.rental"));
+        _billCollector = new BillCollector(this.getDataNode().getNode("econ"));
 
 
         _signHandler = new RentalSignHandler();
