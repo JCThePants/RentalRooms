@@ -33,6 +33,7 @@ import com.jcwhatever.bukkit.generic.regions.RestorableRegion;
 import com.jcwhatever.bukkit.generic.storage.IDataNode;
 import com.jcwhatever.bukkit.generic.utils.DateUtils;
 import com.jcwhatever.bukkit.generic.utils.LocationUtils;
+import com.jcwhatever.bukkit.generic.utils.PreCon;
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.Msg;
 import com.jcwhatever.bukkit.rental.RentalRooms;
@@ -69,14 +70,17 @@ public class RentRegion extends RestorableRegion {
 	
 	IDataNode _tenantInfo;
 	
-	public RentRegion(String name, IDataNode settings) {
-		super(RentalRooms.getInstance(), name, settings);
-		_tenantArea = new HashSet<Location>();
-		_tenantInfo = settings.getNode("tenant");
+	public RentRegion(String name, IDataNode dataNode) {
+		super(RentalRooms.getInstance(), name, dataNode);
+
+        PreCon.notNull(dataNode);
+
+		_tenantArea = new HashSet<Location>(100);
+		_tenantInfo = dataNode.getNode("tenant");
 		loadSettings();
 		loadInterior();
 		
-		_friendManager = new FriendManager(this, settings.getNode("friends"));
+		_friendManager = new FriendManager(this, dataNode.getNode("friends"));
 	}
 	
 	public FriendManager getFriendManager() {
@@ -93,8 +97,8 @@ public class RentRegion extends RestorableRegion {
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat();
 		
-		_dataNode.set("rent-expiration", dateFormat.format(_rentExpiration));
-		_dataNode.saveAsync(null);
+		getDataNode().set("rent-expiration", dateFormat.format(_rentExpiration));
+		getDataNode().saveAsync(null);
 	}
 	
 	public Date getExpirationDate() {
@@ -168,8 +172,10 @@ public class RentRegion extends RestorableRegion {
         }
 
         _rentExpiration = null;
-		_dataNode.set("rent-expiration", null);
-        _dataNode.saveAsync(null);
+
+        //noinspection ConstantConditions
+        getDataNode().set("rent-expiration", null);
+        getDataNode().saveAsync(null);
 		
 		RentMoveOutEvent.callEvent(this, oldTenant);
 	}
@@ -233,12 +239,7 @@ public class RentRegion extends RestorableRegion {
             e.printStackTrace();
         }
     }
-	
-	
-	public IDataNode getSettings() {
-		return _dataNode;
-	}
-	
+
 	private void loadSettings() {
 		UUID tenantId = super.getOwnerId();
 		if (tenantId == null)
@@ -247,7 +248,9 @@ public class RentRegion extends RestorableRegion {
 		_tenant = Tenant.add(tenantId, this);
 		
 		_rentExpiration = null;
-		String expiresStr = _dataNode.getString("rent-expiration");
+
+        //noinspection ConstantConditions
+        String expiresStr = getDataNode().getString("rent-expiration");
 		if (expiresStr != null) {
 			SimpleDateFormat format = new SimpleDateFormat();
 			try {
