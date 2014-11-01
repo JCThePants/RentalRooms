@@ -25,7 +25,6 @@
 package com.jcwhatever.bukkit.rental;
 
 import com.jcwhatever.bukkit.generic.messaging.ChatPaginator;
-import com.jcwhatever.bukkit.generic.messaging.ChatPaginator.PaginatorTemplate;
 import com.jcwhatever.bukkit.generic.messaging.Messenger;
 import com.jcwhatever.bukkit.generic.utils.TextUtils;
 import org.bukkit.command.CommandSender;
@@ -80,7 +79,7 @@ public class Msg {
 	}
     
     public static ChatPaginator getPaginator(String title, Object...params) {
-    	return new ChatPaginator(RentalRooms.getInstance(), 6, PaginatorTemplate.HEADER, PaginatorTemplate.FOOTER, TextUtils.format(title, params));
+    	return new ChatPaginator(RentalRooms.getInstance(), 6, TextUtils.format(title, params));
     }
 
 }
