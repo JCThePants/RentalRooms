@@ -26,6 +26,7 @@ package com.jcwhatever.bukkit.rental;
 
 import com.jcwhatever.bukkit.generic.player.PlayerHelper;
 import com.jcwhatever.bukkit.rental.region.RentRegion;
+
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import javax.annotation.Nullable;
 
 public class Tenant {
 
@@ -102,7 +104,10 @@ public class Tenant {
 	}
 	
 	public String getPlayerName() {
-		return PlayerHelper.getPlayerName(_playerId);		
+		String playerName = PlayerHelper.getPlayerName(_playerId);
+        return playerName == null
+                ? "?"
+                : playerName;
 	}
 
 	public UUID getLandlordPlayerID() {
@@ -127,6 +132,7 @@ public class Tenant {
 		return false;
 	}
 
+    @Nullable
 	public Player getPlayer() {
 		return PlayerHelper.getPlayer(getPlayerID());
 	}

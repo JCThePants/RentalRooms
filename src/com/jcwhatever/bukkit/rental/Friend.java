@@ -48,8 +48,12 @@ public class Friend {
 	}
 	
 	public String getPlayerName() {
-		if (_playerName == null)
-			_playerName = PlayerHelper.getPlayerName(_playerId);
+		if (_playerName == null) {
+            _playerName = PlayerHelper.getPlayerName(_playerId);
+            if (_playerName == null) {
+                _playerName = "?";
+            }
+        }
 		return _playerName;
 	}
 	
@@ -70,7 +74,7 @@ public class Friend {
 			return ((Player)obj).getUniqueId().equals(_playerId);
 		}
 		else if (obj instanceof UUID) {
-			return ((UUID)obj).equals(_playerId);
+			return obj.equals(_playerId);
 		}
 		return false;
 	}
