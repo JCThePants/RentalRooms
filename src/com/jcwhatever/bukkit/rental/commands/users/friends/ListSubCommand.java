@@ -63,7 +63,7 @@ public class ListSubCommand extends AbstractCommand {
 		Player p = (Player)sender;
 		
 		String rentalName = args.getName("rentalName");
-		int page = args.getInt("page");
+		int page = args.getInteger("page");
 		
 		RentRegionManager regionManager = RentalRooms.getInstance().getRegionManager();
 		

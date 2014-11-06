@@ -45,7 +45,7 @@ public class SetMaxAdvanceCommand extends AbstractCommand {
     @Override
     public void execute(CommandSender sender, CommandArguments args) throws InvalidValueException {
         
-        int days = args.getInt("days");
+        int days = args.getInteger("days");
         
         if (days < 0) {
             tellError(sender, "<days> must be a value higher or equal to 0.");

@@ -44,7 +44,7 @@ public class SetRentCycleCommand extends AbstractCommand {
 	@Override
 	public void execute(CommandSender sender, CommandArguments args) throws InvalidValueException {
 		
-		int days = args.getInt("days");
+		int days = args.getInteger("days");
 		
 		BillCollector billCollector = RentalRooms.getInstance().getBillCollector();
 		

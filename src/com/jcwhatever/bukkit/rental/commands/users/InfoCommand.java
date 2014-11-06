@@ -71,7 +71,7 @@ public class InfoCommand extends AbstractCommand {
 	public void execute(CommandSender sender, CommandArguments args) throws InvalidValueException {
 		
 		String rentalName = args.getString("rentalName");
-		int page = args.getInt("page");
+		int page = args.getInteger("page");
 
 		RentRegionManager regionManager = RentalRooms.getInstance().getRegionManager();
 		BillCollector billCollector = RentalRooms.getInstance().getBillCollector();

@@ -61,7 +61,7 @@ public class ListCommand extends AbstractCommand {
 
 		Player p = (Player)sender;
 
-		int page = args.getInt("page");
+		int page = args.getInteger("page");
 
 		BillCollector billCollector = RentalRooms.getInstance().getBillCollector();
 		Tenant tenant = Tenant.get(p);
