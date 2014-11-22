@@ -25,7 +25,7 @@
 package com.jcwhatever.bukkit.rental.commands.users;
 
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
-import com.jcwhatever.bukkit.generic.commands.ICommandInfo;
+import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
@@ -44,7 +44,7 @@ import org.bukkit.permissions.PermissionDefault;
 
 import java.util.List;
 
-@ICommandInfo(
+@CommandInfo(
 		command="list", 
 		staticParams={"page=1"},
 		usage="/rent list [page]",

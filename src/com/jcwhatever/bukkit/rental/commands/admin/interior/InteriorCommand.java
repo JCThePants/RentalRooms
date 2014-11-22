@@ -25,9 +25,9 @@
 package com.jcwhatever.bukkit.rental.commands.admin.interior;
 
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
-import com.jcwhatever.bukkit.generic.commands.ICommandInfo;
+import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 
-@ICommandInfo(
+@CommandInfo(
 		command="interior", 
 		description="Interior options.")
 

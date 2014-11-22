@@ -29,7 +29,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
-import com.jcwhatever.bukkit.generic.commands.ICommandInfo;
+import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidValueException;
@@ -38,7 +38,7 @@ import com.jcwhatever.bukkit.rental.RentalRooms;
 import com.jcwhatever.bukkit.rental.region.RentRegionManager;
 import com.jcwhatever.bukkit.rental.region.RentRegion;
 
-@ICommandInfo(
+@CommandInfo(
 		command="moveout", 
 		staticParams={"rentalName"},
 		usage="/rent moveout [rentalName]",

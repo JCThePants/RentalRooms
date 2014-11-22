@@ -28,13 +28,13 @@ import com.jcwhatever.bukkit.generic.economy.EconomyHelper;
 import org.bukkit.command.CommandSender;
 
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
-import com.jcwhatever.bukkit.generic.commands.ICommandInfo;
+import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidValueException;
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.RentalRooms;
 
-@ICommandInfo(
+@CommandInfo(
 		command="setprice", 
 		staticParams={"price"},
 		usage="/rent setprice <price>",
