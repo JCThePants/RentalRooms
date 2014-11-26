@@ -29,16 +29,17 @@ import com.jcwhatever.bukkit.generic.performance.SingleCache;
 import com.jcwhatever.bukkit.generic.regions.ReadOnlyRegion;
 import com.jcwhatever.bukkit.generic.storage.IDataNode;
 import com.jcwhatever.bukkit.rental.Tenant;
+
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Nullable;
 
 public class RentRegionManager {
 
@@ -105,7 +106,7 @@ public class RentRegionManager {
 		if (_lastRegionByLocation.keyEquals(location))
 			return _lastRegionByLocation.getValue();
 		
-		Set<ReadOnlyRegion> regions = GenericsLib.getRegionManager().getRegions(location);
+		List<ReadOnlyRegion> regions = GenericsLib.getRegionManager().getRegions(location);
 		
 		for (ReadOnlyRegion readOnlyRegion : regions) {
 			if (RentRegion.class.isAssignableFrom(readOnlyRegion.getHandleClass())) {
