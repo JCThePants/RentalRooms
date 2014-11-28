@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental.commands.admin;
 
-import com.jcwhatever.bukkit.generic.economy.EconomyHelper;
+import com.jcwhatever.bukkit.generic.utils.EconomyUtils;
 import org.bukkit.command.CommandSender;
 
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
@@ -51,6 +51,6 @@ public class SetPriceCommand extends AbstractCommand {
 		
 		billCollector.setCostPerVolume(price);
 		
-		tellSuccess(sender, "Cost per volume set to {0}", EconomyHelper.formatAmount(price));
+		tellSuccess(sender, "Cost per volume set to {0}", EconomyUtils.formatAmount(price));
 	}
 }

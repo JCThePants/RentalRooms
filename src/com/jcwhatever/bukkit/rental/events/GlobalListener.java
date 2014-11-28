@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental.events;
 
-import com.jcwhatever.bukkit.generic.economy.EconomyHelper;
+import com.jcwhatever.bukkit.generic.utils.EconomyUtils;
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.Msg;
 import com.jcwhatever.bukkit.rental.RentalRooms;
@@ -193,7 +193,7 @@ public class GlobalListener implements Listener {
                 if (notified.contains(p))
                     continue;
 
-                Msg.tell(p, "Rent has increased from {0} to {1} per cubic volume.",  EconomyHelper.formatAmount(event.getOldAmount()), EconomyHelper.formatAmount(event.getNewAmount()));
+                Msg.tell(p, "Rent has increased from {0} to {1} per cubic volume.",  EconomyUtils.formatAmount(event.getOldAmount()), EconomyUtils.formatAmount(event.getNewAmount()));
                 notified.add(p);
             }
         }
