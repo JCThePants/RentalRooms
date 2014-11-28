@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental;
 
-import com.jcwhatever.bukkit.generic.player.PlayerHelper;
+import com.jcwhatever.bukkit.generic.utils.PlayerUtils;
 import com.jcwhatever.bukkit.rental.region.RentRegion;
 
 import org.bukkit.entity.Player;
@@ -104,7 +104,7 @@ public class Tenant {
 	}
 	
 	public String getPlayerName() {
-		String playerName = PlayerHelper.getPlayerName(_playerId);
+		String playerName = PlayerUtils.getPlayerName(_playerId);
         return playerName == null
                 ? "?"
                 : playerName;
@@ -134,7 +134,7 @@ public class Tenant {
 
     @Nullable
 	public Player getPlayer() {
-		return PlayerHelper.getPlayer(getPlayerID());
+		return PlayerUtils.getPlayer(getPlayerID());
 	}
 
 }

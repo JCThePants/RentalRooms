@@ -30,7 +30,7 @@ import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidValueException;
-import com.jcwhatever.bukkit.generic.player.PlayerHelper;
+import com.jcwhatever.bukkit.generic.utils.PlayerUtils;
 import com.jcwhatever.bukkit.rental.RentalRooms;
 import com.jcwhatever.bukkit.rental.region.RentRegion;
 import com.jcwhatever.bukkit.rental.region.RentRegionManager;
@@ -74,7 +74,7 @@ public class DelSubCommand extends AbstractCommand {
 			return; // finish
 		}
 		
-		UUID friendId = PlayerHelper.getPlayerId(playerName);
+		UUID friendId = PlayerUtils.getPlayerId(playerName);
 		if (friendId == null) {
 			tellError(p, "'{0}' was not found.", playerName);
 			return; // finish

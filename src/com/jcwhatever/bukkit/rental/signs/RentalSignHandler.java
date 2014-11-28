@@ -25,7 +25,7 @@
 package com.jcwhatever.bukkit.rental.signs;
 
 import com.jcwhatever.bukkit.generic.economy.EconomyHelper;
-import com.jcwhatever.bukkit.generic.player.PlayerHelper;
+import com.jcwhatever.bukkit.generic.utils.PlayerUtils;
 import com.jcwhatever.bukkit.generic.signs.SignContainer;
 import com.jcwhatever.bukkit.generic.signs.SignHandler;
 import com.jcwhatever.bukkit.generic.utils.DateUtils;
@@ -251,7 +251,7 @@ public class RentalSignHandler extends SignHandler {
 		BillCollector billCollector = RentalRooms.getInstance().getBillCollector();
 
 		Player tenant = region.hasTenant() 
-				? PlayerHelper.getPlayer(region.getTenant().getPlayerID()) 
+				? PlayerUtils.getPlayer(region.getTenant().getPlayerID())
 				: null;
 
 		String tenantName = region.hasTenant() 

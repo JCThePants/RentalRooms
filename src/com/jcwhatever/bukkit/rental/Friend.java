@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental;
 
-import com.jcwhatever.bukkit.generic.player.PlayerHelper;
+import com.jcwhatever.bukkit.generic.utils.PlayerUtils;
 import com.jcwhatever.bukkit.generic.storage.IDataNode;
 import org.bukkit.entity.Player;
 
@@ -49,7 +49,7 @@ public class Friend {
 	
 	public String getPlayerName() {
 		if (_playerName == null) {
-            _playerName = PlayerHelper.getPlayerName(_playerId);
+            _playerName = PlayerUtils.getPlayerName(_playerId);
             if (_playerName == null) {
                 _playerName = "?";
             }
