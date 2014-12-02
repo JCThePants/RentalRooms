@@ -90,6 +90,6 @@ public class ListSubCommand extends AbstractCommand {
 			pagin.add(friend.getPlayerName());
 		}
 		
-		pagin.show(sender, page, FormatTemplate.ITEM);
+		pagin.show(sender, page, FormatTemplate.LIST_ITEM);
 	}
 }

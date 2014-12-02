@@ -88,7 +88,7 @@ public class ListCommand extends AbstractCommand {
 			}
 		}
 
-		pagin.show(sender, page, FormatTemplate.DEFINITION);
+		pagin.show(sender, page, FormatTemplate.CONSTANT_DEFINITION);
 	}
 
 }

@@ -65,6 +65,6 @@ public class ListAllCommand extends AbstractCommand {
 			pagin.add(region.getName(), region.hasTenant() ? region.getTenant().getPlayerName() : noTenantLabel);
 		}
 		
-		pagin.show(sender, page, FormatTemplate.ITEM);
+		pagin.show(sender, page, FormatTemplate.LIST_ITEM);
 	}
 }
