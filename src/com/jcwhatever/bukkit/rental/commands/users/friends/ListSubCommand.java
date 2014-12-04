@@ -31,7 +31,7 @@ import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderExc
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidValueException;
 import com.jcwhatever.bukkit.generic.messaging.ChatPaginator;
-import com.jcwhatever.bukkit.generic.utils.TextUtils.FormatTemplate;
+import com.jcwhatever.bukkit.generic.utils.text.TextUtils.FormatTemplate;
 import com.jcwhatever.bukkit.rental.Friend;
 import com.jcwhatever.bukkit.rental.Lang;
 import com.jcwhatever.bukkit.rental.Msg;
