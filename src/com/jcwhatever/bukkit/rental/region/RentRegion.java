@@ -123,15 +123,12 @@ public class RentRegion extends RestorableRegion {
 	}
 	
     @Override
-    public boolean setOwner(UUID ownerId) {
+    protected boolean onOwnerChanged(UUID oldOwnerId, UUID ownerId) {
         
         if (_tenant != null) {
             evict();
         }
-        
-        if (!super.setOwner(ownerId))
-            return false;
-        
+
         _tenant = Tenant.add(ownerId, this);
         
         RentMoveInEvent.callEvent(this, _tenant);
