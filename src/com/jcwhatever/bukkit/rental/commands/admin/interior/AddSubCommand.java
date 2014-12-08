@@ -24,20 +24,20 @@
 
 package com.jcwhatever.bukkit.rental.commands.admin.interior;
 
-import org.bukkit.Location;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
 import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidValueException;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
-import com.jcwhatever.bukkit.generic.messaging.Messenger;
+import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidValueException;
+import com.jcwhatever.bukkit.rental.Msg;
 import com.jcwhatever.bukkit.rental.RentalRooms;
-import com.jcwhatever.bukkit.rental.region.RentRegionManager;
 import com.jcwhatever.bukkit.rental.region.RentRegion;
+import com.jcwhatever.bukkit.rental.region.RentRegionManager;
+
+import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 @CommandInfo(
 		parent="interior", 
@@ -65,24 +65,24 @@ public class AddSubCommand extends AbstractCommand {
 		
 		RentRegion region = regionManager.getRegion(rentalName);
 		if (region == null) {
-			Messenger.tell(RentalRooms.getInstance(), p, "A rental region with the name '" + rentalName + "' was not found.");
+			Msg.tell(p, "A rental region with the name '" + rentalName + "' was not found.");
 			return; // finish
 		}
 		
 		if (!region.isDefined()) {
-			Messenger.tell(RentalRooms.getInstance(), p, "Rental region '" + rentalName + "' is not defined yet.");
+			Msg.tell(p, "Rental region '" + rentalName + "' is not defined yet.");
 			return; // finish
 		}
 		
 		if (!region.contains(start)) {
-			Messenger.tell(RentalRooms.getInstance(), p, "You must be standing inside the rental region.");
+			Msg.tell(p, "You must be standing inside the rental region.");
 			return; // finish
 		}
 		
 		int added = region.addInterior(start);
 		
 		
-		Messenger.tell(RentalRooms.getInstance(), p, "Added " + added + " new interior locations to rental region '" + region.getName() + "'.");
+		Msg.tell(p, "Added " + added + " new interior locations to rental region '" + region.getName() + "'.");
     }
 	
 }

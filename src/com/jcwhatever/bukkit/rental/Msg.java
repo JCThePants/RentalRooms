@@ -25,8 +25,9 @@
 package com.jcwhatever.bukkit.rental;
 
 import com.jcwhatever.bukkit.generic.messaging.ChatPaginator;
-import com.jcwhatever.bukkit.generic.messaging.Messenger;
+import com.jcwhatever.bukkit.generic.messaging.IMessenger;
 import com.jcwhatever.bukkit.generic.utils.text.TextUtils;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -35,51 +36,53 @@ import java.util.UUID;
 
 public class Msg {
 
-    
     private Msg() {}
 
-	
 	public static void tell(CommandSender sender, String message, Object...params) {
-   		Messenger.tell(RentalRooms.getInstance(), sender, message, params);
+        msg().tell(sender, message, params);
     }
     
     public static void tell(Player p, String message, Object...params) {
-    	Messenger.tell(RentalRooms.getInstance(), p, message, params);
+        msg().tell(p, message, params);
     }
     
     public static void tellImportant(UUID playerId, String context, String message, Object...params) {
-    	Messenger.tellImportant(RentalRooms.getInstance(), playerId, context, message, params);
+        msg().tellImportant(playerId, context, message, params);
     }
     
     public static void info(String message, Object...params) {
-		Messenger.info(RentalRooms.getInstance(), message, params);
+        msg().info(message, params);
 	}
     
     public static void debug(String message, Object...params) {
-    	//if (!RentalRooms.getInstance().isDebugging())
-    	//	return;
-    	Messenger.debug(RentalRooms.getInstance(), message, params);
+    	if (!RentalRooms.getInstance().isDebugging())
+    		return;
+
+        msg().debug(message, params);
     }
     
     public static void warning(String message, Object...params) {
-    	Messenger.warning(RentalRooms.getInstance(), message, params);
+        msg().warning(message, params);
     }
     
     public static void severe(String message, Object...params) {
-    	Messenger.severe(RentalRooms.getInstance(), message, params);
+    	msg().severe(message, params);
     }
 
     public static void broadcast(String message, Object...params) {
-		Messenger.broadcast(RentalRooms.getInstance(), message, params);
-		
+		msg().broadcast(message, params);
 	}
     
     public static void broadcast(String message, Collection<Player> exclude, Object...params) {
-		Messenger.broadcast(RentalRooms.getInstance(), message, exclude, params);
+		msg().broadcast(exclude, message, params);
 	}
     
     public static ChatPaginator getPaginator(String title, Object...params) {
     	return new ChatPaginator(RentalRooms.getInstance(), 6, TextUtils.format(title, params));
+    }
+
+    private static IMessenger msg() {
+        return RentalRooms.getInstance().getMessenger();
     }
 
 }

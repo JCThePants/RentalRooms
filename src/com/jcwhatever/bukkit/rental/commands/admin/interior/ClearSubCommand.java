@@ -24,17 +24,17 @@
 
 package com.jcwhatever.bukkit.rental.commands.admin.interior;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
 import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidValueException;
-import com.jcwhatever.bukkit.generic.messaging.Messenger;
+import com.jcwhatever.bukkit.rental.Msg;
 import com.jcwhatever.bukkit.rental.RentalRooms;
-import com.jcwhatever.bukkit.rental.region.RentRegionManager;
 import com.jcwhatever.bukkit.rental.region.RentRegion;
+import com.jcwhatever.bukkit.rental.region.RentRegionManager;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 @CommandInfo(
 		parent="interior", 
@@ -56,13 +56,13 @@ public class ClearSubCommand extends AbstractCommand {
 		
 		RentRegion region = regionManager.getRegion(rentalName);
 		if (region == null) {
-			Messenger.tell(RentalRooms.getInstance(), p, "A rental region with the name '" + rentalName + "' was not found.");
+			Msg.tell(p, "A rental region with the name '" + rentalName + "' was not found.");
 			return; // finish
 		}
 		
 		region.clearInterior();
 				
-		Messenger.tell(RentalRooms.getInstance(), p, "Cleared interior locations from rental region '" + region.getName() + "'.");
+		Msg.tell(p, "Cleared interior locations from rental region '" + region.getName() + "'.");
     }
 
 }
