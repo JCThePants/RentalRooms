@@ -24,27 +24,27 @@
 
 package com.jcwhatever.bukkit.rental.commands.admin;
 
-import com.jcwhatever.bukkit.generic.regions.selection.RegionSelection;
-import org.bukkit.Location;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
 import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidValueException;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
+import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidValueException;
+import com.jcwhatever.bukkit.generic.regions.selection.IRegionSelection;
 import com.jcwhatever.bukkit.rental.RentalRooms;
 import com.jcwhatever.bukkit.rental.region.RentRegion;
 import com.jcwhatever.bukkit.rental.region.RentRegionManager;
+
+import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 
 @CommandInfo(
         command="setregion", 
         staticParams="rentalName",
         usage="/rent setregion <rentalName>",
-        description="Set the a rental rooms region using your current world edit cuboid selection.")
+        description="Set the a rental rooms region using your current region selection.")
 
 public class SetRegionCommand extends AbstractCommand {
     
@@ -54,27 +54,18 @@ public class SetRegionCommand extends AbstractCommand {
         
         InvalidCommandSenderException.check(sender, CommandSenderType.PLAYER,
                 "Console cannot select regions.");
-        
-        if (!isWorldEditInstalled(sender))
-            return; // finish
-        
-        
+
         String rentalName = args.getName("rentalName");
         
         Player p = (Player)sender;
         
-        RegionSelection selection = getWorldEditSelection(p);
+        IRegionSelection selection = getRegionSelection(p);
         if (selection == null)
             return; // finish
         
         Location p1 = selection.getP1();
         Location p2 = selection.getP2();
-                
-        if (p1 == null || p2 == null) {
-            tellError(p, "World edit selection incomplete. Please select both points of the cuboid area.");
-            return; // finish
-        }
-        
+
         RentRegionManager regionManager = RentalRooms.getInstance().getRegionManager();
         
         RentRegion region = regionManager.getRegion(rentalName);
