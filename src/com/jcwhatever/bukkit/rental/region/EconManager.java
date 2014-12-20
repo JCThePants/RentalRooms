@@ -30,7 +30,6 @@ import org.bukkit.entity.Player;
 
 public class EconManager {
 
-	
 	private double _rentAmount;
 	private int _rentCycle; // term units are minecraft days
 	
@@ -62,7 +61,7 @@ public class EconManager {
 		if (_rentAmount == 0)
 			return true;
 		
-		double playerBalance = EconomyUtils.getBalance(p);
+		double playerBalance = EconomyUtils.getBalance(p.getUniqueId());
 		return playerBalance >= _rentAmount;
 	}
 	
@@ -77,7 +76,7 @@ public class EconManager {
 		if (!canPay(p))
 			return false;
 		
-		EconomyUtils.giveMoney(p, -(_rentAmount));
+		EconomyUtils.withdraw(p.getUniqueId(), _rentAmount);
 		return true;
 	}
 

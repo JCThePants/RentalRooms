@@ -107,7 +107,7 @@ public class BillCollector {
         if (rentAmount == 0)
             return true;
 
-        double playerBalance = EconomyUtils.getBalance(p);
+        double playerBalance = EconomyUtils.getBalance(p.getUniqueId());
         return playerBalance >= rentAmount;
     }
 
@@ -136,7 +136,7 @@ public class BillCollector {
 		if (!canPay(region, p))
 			return false;
 
-		EconomyUtils.giveMoney(p, -(rentAmount));
+		EconomyUtils.withdraw(p.getUniqueId(), rentAmount);
 
 		region.setPayed();
 		
