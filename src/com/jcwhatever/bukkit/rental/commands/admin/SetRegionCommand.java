@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental.commands.admin;
 
-import com.jcwhatever.bukkit.generic.regions.data.RegionSelection;
+import com.jcwhatever.bukkit.generic.regions.selection.RegionSelection;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
