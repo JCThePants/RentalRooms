@@ -39,9 +39,9 @@ public class FriendsCommand extends AbstractCommand {
 	public FriendsCommand() {
 		super();
 		
-		this.registerSubCommand(AddSubCommand.class);
-		this.registerSubCommand(DelSubCommand.class);
-		this.registerSubCommand(ListSubCommand.class);
+		this.registerCommand(AddSubCommand.class);
+		this.registerCommand(DelSubCommand.class);
+		this.registerCommand(ListSubCommand.class);
 	}
 }
 

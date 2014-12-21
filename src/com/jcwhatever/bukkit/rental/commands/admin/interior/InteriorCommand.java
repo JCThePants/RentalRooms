@@ -36,8 +36,8 @@ public class InteriorCommand extends AbstractCommand {
     public InteriorCommand() {
         super();
         
-        registerSubCommand(AddSubCommand.class);
-        registerSubCommand(ClearSubCommand.class);
+        registerCommand(AddSubCommand.class);
+        registerCommand(ClearSubCommand.class);
     }
 	
 }
