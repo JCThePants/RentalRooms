@@ -32,7 +32,7 @@ import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
 import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidValueException;
+import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidArgumentException;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
 import com.jcwhatever.bukkit.rental.RentalRooms;
 import com.jcwhatever.bukkit.rental.region.RentRegionManager;
@@ -49,7 +49,7 @@ public class MoveOutCommand extends AbstractCommand {
 
 	@Override
 	public void execute(CommandSender sender, CommandArguments args)
-	        throws InvalidValueException, InvalidCommandSenderException {
+	        throws InvalidArgumentException, InvalidCommandSenderException {
 
 	    InvalidCommandSenderException.check(sender, CommandSenderType.PLAYER);
 
