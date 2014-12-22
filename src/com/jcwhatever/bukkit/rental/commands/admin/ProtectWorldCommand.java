@@ -27,9 +27,7 @@ package com.jcwhatever.bukkit.rental.commands.admin;
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
 import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidArgumentException;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
+import com.jcwhatever.bukkit.generic.commands.exceptions.CommandException;
 import com.jcwhatever.bukkit.rental.RentalRooms;
 import com.jcwhatever.bukkit.rental.region.RentRegionManager;
 
@@ -46,15 +44,13 @@ import org.bukkit.entity.Player;
 public class ProtectWorldCommand extends AbstractCommand {
 	
 	@Override
-	public void execute(CommandSender sender, CommandArguments args)
-	        throws InvalidArgumentException, InvalidCommandSenderException {
+	public void execute(CommandSender sender, CommandArguments args) throws CommandException {
 		
 		String worldName = null;
 		
 		if (args.getString("worldName").equals("$default")) {
-			
-		    InvalidCommandSenderException.check(sender, CommandSenderType.PLAYER, 
-		            "Console has no location. Specify world name.");
+
+			CommandException.assertNotConsole(this, sender);
 						
 			worldName = ((Player)sender).getWorld().getName(); 
 		}
