@@ -40,7 +40,6 @@ import org.bukkit.entity.Player;
 		parent="interior", 
 		command="clear",
 		staticParams={"rentalName"},
-		usage="/rent interior clear <rentalName>", 
 		description="Clear stored interior locations from the specified rental region.")
 
 public class ClearSubCommand extends AbstractCommand {

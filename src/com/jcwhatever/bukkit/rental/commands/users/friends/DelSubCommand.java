@@ -44,7 +44,6 @@ import java.util.UUID;
 		parent="friends",
 		command="del", 
 		staticParams={"rentalName", "playerName"},
-		usage="/rent friends del <rentalName> <playerName>",
 		description="Remove a friend from the specified rented region.",
 		permissionDefault=PermissionDefault.TRUE)
 

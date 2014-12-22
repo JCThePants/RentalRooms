@@ -24,8 +24,6 @@
 
 package com.jcwhatever.bukkit.rental.commands.admin;
 
-import org.bukkit.command.CommandSender;
-
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
 import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
@@ -33,10 +31,11 @@ import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidArgumentExceptio
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.RentalRooms;
 
+import org.bukkit.command.CommandSender;
+
 @CommandInfo(
 		command="setrentcycle", 
 		staticParams={"days"},
-		usage="/rent setrentcycle <days>",
 		description="Set rent cycle in real life days.")
 
 public class SetRentCycleCommand extends AbstractCommand {

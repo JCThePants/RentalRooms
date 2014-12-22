@@ -24,26 +24,25 @@
 
 package com.jcwhatever.bukkit.rental.commands.users.friends;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.permissions.PermissionDefault;
-
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
 import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidArgumentException;
+import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
 import com.jcwhatever.bukkit.generic.utils.PlayerUtils;
 import com.jcwhatever.bukkit.rental.RentalRooms;
 import com.jcwhatever.bukkit.rental.region.RentRegion;
 import com.jcwhatever.bukkit.rental.region.RentRegionManager;
 
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionDefault;
+
 @CommandInfo(
 		parent="friends",
 		command="add", 
 		staticParams={"rentalName", "playerName"},
-		usage="/rent friends add <rentalName> <playerName>",
 		description="Add a friend who has permission to interact with the specified rented region.",
 		permissionDefault=PermissionDefault.TRUE)
 

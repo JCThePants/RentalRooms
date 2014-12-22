@@ -26,7 +26,7 @@ package com.jcwhatever.bukkit.rental.commands;
 
 import org.bukkit.plugin.Plugin;
 
-import com.jcwhatever.bukkit.generic.commands.AbstractCommandHandler;
+import com.jcwhatever.bukkit.generic.commands.CommandDispatcher;
 import com.jcwhatever.bukkit.rental.commands.admin.CreateCommand;
 import com.jcwhatever.bukkit.rental.commands.admin.DelCommand;
 import com.jcwhatever.bukkit.rental.commands.admin.EditModeCommand;
@@ -45,9 +45,9 @@ import com.jcwhatever.bukkit.rental.commands.users.MoveOutCommand;
 import com.jcwhatever.bukkit.rental.commands.users.PayCommand;
 import com.jcwhatever.bukkit.rental.commands.users.friends.FriendsCommand;
 
-public class CommandHandler extends AbstractCommandHandler {
+public class RentalCommandDispatcher extends CommandDispatcher {
 
-	public CommandHandler(Plugin plugin) {
+	public RentalCommandDispatcher(Plugin plugin) {
 		super(plugin);
 	}
 

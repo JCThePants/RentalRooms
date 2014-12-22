@@ -42,7 +42,6 @@ import java.util.UUID;
 
 @CommandInfo(
 		command="movein", 
-		usage="/rent movein",
 		description="Move in to the rental unit you're standing in.",
 		permissionDefault=PermissionDefault.TRUE)
 

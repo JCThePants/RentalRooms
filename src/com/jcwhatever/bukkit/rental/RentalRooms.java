@@ -26,7 +26,7 @@ package com.jcwhatever.bukkit.rental;
 
 import com.jcwhatever.bukkit.generic.GenericsPlugin;
 import com.jcwhatever.bukkit.generic.signs.SignManager;
-import com.jcwhatever.bukkit.rental.commands.CommandHandler;
+import com.jcwhatever.bukkit.rental.commands.RentalCommandDispatcher;
 import com.jcwhatever.bukkit.rental.events.GlobalListener;
 import com.jcwhatever.bukkit.rental.region.RentRegionManager;
 import com.jcwhatever.bukkit.rental.signs.RentalSignHandler;
@@ -98,7 +98,7 @@ public class RentalRooms extends GenericsPlugin {
     }
 
 	private void registerListeners() {
-        CommandHandler handler = new CommandHandler(this);
+        RentalCommandDispatcher handler = new RentalCommandDispatcher(this);
         getCommand("rent").setExecutor(handler);
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(_listener, this);

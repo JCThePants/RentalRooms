@@ -24,20 +24,19 @@
 
 package com.jcwhatever.bukkit.rental.commands.admin;
 
-import com.jcwhatever.bukkit.generic.utils.EconomyUtils;
-import org.bukkit.command.CommandSender;
-
 import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
 import com.jcwhatever.bukkit.generic.commands.CommandInfo;
 import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
 import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidArgumentException;
+import com.jcwhatever.bukkit.generic.utils.EconomyUtils;
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.RentalRooms;
+
+import org.bukkit.command.CommandSender;
 
 @CommandInfo(
 		command="setprice", 
 		staticParams={"price"},
-		usage="/rent setprice <price>",
 		description="Set price per unit of volume of rental.")
 
 public class SetPriceCommand extends AbstractCommand {

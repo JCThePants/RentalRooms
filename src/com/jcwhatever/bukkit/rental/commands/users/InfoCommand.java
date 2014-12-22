@@ -48,7 +48,6 @@ import java.util.List;
 @CommandInfo(
 		command="info", 
 		staticParams={"rentalName", "page=1"},
-		usage="/rent info <rentalName> [page]",
 		description="Get info about the specified rental region.",
 		permissionDefault=PermissionDefault.TRUE)
 

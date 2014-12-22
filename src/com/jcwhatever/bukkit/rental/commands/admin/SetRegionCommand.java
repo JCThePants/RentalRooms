@@ -42,8 +42,7 @@ import org.bukkit.entity.Player;
 
 @CommandInfo(
         command="setregion", 
-        staticParams="rentalName",
-        usage="/rent setregion <rentalName>",
+        staticParams={"rentalName"},
         description="Set the a rental rooms region using your current region selection.")
 
 public class SetRegionCommand extends AbstractCommand {

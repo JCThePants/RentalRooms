@@ -24,24 +24,23 @@
 
 package com.jcwhatever.bukkit.rental.commands.admin;
 
+import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
+import com.jcwhatever.bukkit.generic.commands.CommandInfo;
+import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
+import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidArgumentException;
+import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
+import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
+import com.jcwhatever.bukkit.rental.RentalRooms;
+import com.jcwhatever.bukkit.rental.region.RentRegionManager;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
-import com.jcwhatever.bukkit.generic.commands.CommandInfo;
-import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidArgumentException;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
-import com.jcwhatever.bukkit.rental.RentalRooms;
-import com.jcwhatever.bukkit.rental.region.RentRegionManager;
-
 @CommandInfo(
 		command="protectworld", 
 		staticParams={"worldName=$default"},
-		usage="/rent protectworld [worldName]",
 		description="Prevent editing entire world you are in or specify a world.")
 
 public class ProtectWorldCommand extends AbstractCommand {

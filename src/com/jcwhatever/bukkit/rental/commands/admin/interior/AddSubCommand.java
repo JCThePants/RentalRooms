@@ -43,7 +43,6 @@ import org.bukkit.entity.Player;
 		parent="interior", 
 		command="add",
 		staticParams={"rentalName"},
-		usage="/rent interior add <rentalName>", 
 		description="Searches the interior of a building starting from where you are standing to get the tenant editable interior.")
 
 public class AddSubCommand extends AbstractCommand {

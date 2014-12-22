@@ -24,24 +24,23 @@
 
 package com.jcwhatever.bukkit.rental.commands.users;
 
+import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
+import com.jcwhatever.bukkit.generic.commands.CommandInfo;
+import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
+import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidArgumentException;
+import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
+import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
+import com.jcwhatever.bukkit.rental.RentalRooms;
+import com.jcwhatever.bukkit.rental.region.RentRegion;
+import com.jcwhatever.bukkit.rental.region.RentRegionManager;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 
-import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
-import com.jcwhatever.bukkit.generic.commands.CommandInfo;
-import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidArgumentException;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidCommandSenderException.CommandSenderType;
-import com.jcwhatever.bukkit.rental.RentalRooms;
-import com.jcwhatever.bukkit.rental.region.RentRegionManager;
-import com.jcwhatever.bukkit.rental.region.RentRegion;
-
 @CommandInfo(
 		command="moveout", 
 		staticParams={"rentalName"},
-		usage="/rent moveout [rentalName]",
 		description="Move out of the rental unit you're standing in or specify.",
 		permissionDefault=PermissionDefault.TRUE)
 

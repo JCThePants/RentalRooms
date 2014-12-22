@@ -43,7 +43,6 @@ import org.bukkit.entity.Player;
 @CommandInfo(
 		command="create", 
 		staticParams="rentalName",
-		usage="/rent create <rentalName>",
 		description="Create a rental room using your current region selection.")
 
 public class CreateCommand extends AbstractCommand {

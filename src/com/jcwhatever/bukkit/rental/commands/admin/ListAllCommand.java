@@ -42,7 +42,6 @@ import java.util.List;
 @CommandInfo(
 		command="listall", 
 		staticParams={"page=1"},
-		usage="/rent listall [page]",
 		description="List all rental regions.")
 
 public class ListAllCommand extends AbstractCommand {

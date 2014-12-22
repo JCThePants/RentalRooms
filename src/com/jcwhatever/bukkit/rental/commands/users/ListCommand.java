@@ -47,7 +47,6 @@ import java.util.List;
 @CommandInfo(
 		command="list", 
 		staticParams={"page=1"},
-		usage="/rent list [page]",
 		description="Get a list of your rented regions.",
 		permissionDefault=PermissionDefault.TRUE)
 

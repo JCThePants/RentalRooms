@@ -48,7 +48,6 @@ import java.util.List;
 		parent="friends",
 		command="list", 
 		staticParams={ "rentalName", "page=1"},
-		usage="/rent friends list <rentalName> [page]",
 		description="List all friends in the specified rental.",
 		permissionDefault=PermissionDefault.TRUE)
 
