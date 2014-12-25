@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental;
 
-import com.jcwhatever.bukkit.generic.utils.PlayerUtils;
+import com.jcwhatever.generic.utils.player.PlayerUtils;
 import com.jcwhatever.bukkit.rental.region.RentRegion;
 
 import org.bukkit.entity.Player;

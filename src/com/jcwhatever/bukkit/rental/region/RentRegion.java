@@ -24,16 +24,16 @@
 
 package com.jcwhatever.bukkit.rental.region;
 
-import com.jcwhatever.bukkit.generic.file.GenericsByteReader;
-import com.jcwhatever.bukkit.generic.file.GenericsByteWriter;
-import com.jcwhatever.bukkit.generic.pathing.InteriorFinder;
-import com.jcwhatever.bukkit.generic.pathing.InteriorFinder.InteriorResults;
-import com.jcwhatever.bukkit.generic.regions.BuildMethod;
-import com.jcwhatever.bukkit.generic.regions.RestorableRegion;
-import com.jcwhatever.bukkit.generic.storage.IDataNode;
-import com.jcwhatever.bukkit.generic.utils.DateUtils;
-import com.jcwhatever.bukkit.generic.utils.LocationUtils;
-import com.jcwhatever.bukkit.generic.utils.PreCon;
+import com.jcwhatever.generic.utils.file.GenericsByteReader;
+import com.jcwhatever.generic.utils.file.GenericsByteWriter;
+import com.jcwhatever.generic.utils.pathing.InteriorFinder;
+import com.jcwhatever.generic.utils.pathing.InteriorFinder.InteriorResults;
+import com.jcwhatever.generic.regions.BuildMethod;
+import com.jcwhatever.generic.regions.RestorableRegion;
+import com.jcwhatever.generic.storage.IDataNode;
+import com.jcwhatever.generic.utils.DateUtils;
+import com.jcwhatever.generic.utils.LocationUtils;
+import com.jcwhatever.generic.utils.PreCon;
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.Msg;
 import com.jcwhatever.bukkit.rental.RentalRooms;

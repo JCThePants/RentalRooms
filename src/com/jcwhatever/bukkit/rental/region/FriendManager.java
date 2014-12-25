@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental.region;
 
-import com.jcwhatever.bukkit.generic.storage.IDataNode;
+import com.jcwhatever.generic.storage.IDataNode;
 import com.jcwhatever.bukkit.rental.Friend;
 import org.bukkit.entity.Player;
 

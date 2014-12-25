@@ -24,8 +24,8 @@
 
 package com.jcwhatever.bukkit.rental;
 
-import com.jcwhatever.bukkit.generic.GenericsPlugin;
-import com.jcwhatever.bukkit.generic.signs.SignManager;
+import com.jcwhatever.generic.GenericsPlugin;
+import com.jcwhatever.generic.signs.SignManager;
 import com.jcwhatever.bukkit.rental.commands.RentalCommandDispatcher;
 import com.jcwhatever.bukkit.rental.events.GlobalListener;
 import com.jcwhatever.bukkit.rental.region.RentRegionManager;

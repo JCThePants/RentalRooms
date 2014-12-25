@@ -24,10 +24,10 @@
 
 package com.jcwhatever.bukkit.rental.region;
 
-import com.jcwhatever.bukkit.generic.GenericsLib;
-import com.jcwhatever.bukkit.generic.performance.SingleCache;
-import com.jcwhatever.bukkit.generic.regions.IRegion;
-import com.jcwhatever.bukkit.generic.storage.IDataNode;
+import com.jcwhatever.generic.GenericsLib;
+import com.jcwhatever.generic.utils.performance.SingleCache;
+import com.jcwhatever.generic.regions.IRegion;
+import com.jcwhatever.generic.storage.IDataNode;
 import com.jcwhatever.bukkit.rental.Tenant;
 
 import org.bukkit.Location;

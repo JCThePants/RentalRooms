@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental.events;
 
-import com.jcwhatever.bukkit.generic.utils.EconomyUtils;
+import com.jcwhatever.generic.utils.EconomyUtils;
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.Msg;
 import com.jcwhatever.bukkit.rental.RentalRooms;

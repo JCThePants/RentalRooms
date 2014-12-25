@@ -26,7 +26,7 @@ package com.jcwhatever.bukkit.rental.commands;
 
 import org.bukkit.plugin.Plugin;
 
-import com.jcwhatever.bukkit.generic.commands.CommandDispatcher;
+import com.jcwhatever.generic.commands.CommandDispatcher;
 import com.jcwhatever.bukkit.rental.commands.admin.CreateCommand;
 import com.jcwhatever.bukkit.rental.commands.admin.DelCommand;
 import com.jcwhatever.bukkit.rental.commands.admin.EditModeCommand;

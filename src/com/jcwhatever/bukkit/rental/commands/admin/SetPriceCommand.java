@@ -24,11 +24,11 @@
 
 package com.jcwhatever.bukkit.rental.commands.admin;
 
-import com.jcwhatever.bukkit.generic.commands.AbstractCommand;
-import com.jcwhatever.bukkit.generic.commands.CommandInfo;
-import com.jcwhatever.bukkit.generic.commands.arguments.CommandArguments;
-import com.jcwhatever.bukkit.generic.commands.exceptions.InvalidArgumentException;
-import com.jcwhatever.bukkit.generic.utils.EconomyUtils;
+import com.jcwhatever.generic.commands.AbstractCommand;
+import com.jcwhatever.generic.commands.CommandInfo;
+import com.jcwhatever.generic.commands.arguments.CommandArguments;
+import com.jcwhatever.generic.commands.exceptions.InvalidArgumentException;
+import com.jcwhatever.generic.utils.EconomyUtils;
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.RentalRooms;
 
