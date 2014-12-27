@@ -26,8 +26,8 @@ package com.jcwhatever.bukkit.rental.commands.users.friends;
 
 import org.bukkit.permissions.PermissionDefault;
 
-import com.jcwhatever.generic.commands.AbstractCommand;
-import com.jcwhatever.generic.commands.CommandInfo;
+import com.jcwhatever.nucleus.commands.AbstractCommand;
+import com.jcwhatever.nucleus.commands.CommandInfo;
 
 @CommandInfo(
 		command="friends", 

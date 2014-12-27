@@ -24,8 +24,8 @@
 
 package com.jcwhatever.bukkit.rental;
 
-import com.jcwhatever.generic.utils.player.PlayerUtils;
-import com.jcwhatever.generic.storage.IDataNode;
+import com.jcwhatever.nucleus.utils.player.PlayerUtils;
+import com.jcwhatever.nucleus.storage.IDataNode;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;

@@ -24,12 +24,12 @@
 
 package com.jcwhatever.bukkit.rental.commands.users.friends;
 
-import com.jcwhatever.generic.commands.AbstractCommand;
-import com.jcwhatever.generic.commands.CommandInfo;
-import com.jcwhatever.generic.commands.arguments.CommandArguments;
-import com.jcwhatever.generic.commands.exceptions.CommandException;
-import com.jcwhatever.generic.messaging.ChatPaginator;
-import com.jcwhatever.generic.utils.text.TextUtils.FormatTemplate;
+import com.jcwhatever.nucleus.commands.AbstractCommand;
+import com.jcwhatever.nucleus.commands.CommandInfo;
+import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
+import com.jcwhatever.nucleus.commands.exceptions.CommandException;
+import com.jcwhatever.nucleus.messaging.ChatPaginator;
+import com.jcwhatever.nucleus.utils.text.TextUtils.FormatTemplate;
 import com.jcwhatever.bukkit.rental.Friend;
 import com.jcwhatever.bukkit.rental.Lang;
 import com.jcwhatever.bukkit.rental.Msg;

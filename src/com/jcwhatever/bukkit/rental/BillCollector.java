@@ -24,11 +24,11 @@
 
 package com.jcwhatever.bukkit.rental;
 
-import com.jcwhatever.generic.utils.EconomyUtils;
-import com.jcwhatever.generic.storage.IDataNode;
-import com.jcwhatever.generic.utils.DateUtils;
-import com.jcwhatever.generic.utils.DateUtils.TimeRound;
-import com.jcwhatever.generic.utils.PreCon;
+import com.jcwhatever.nucleus.utils.EconomyUtils;
+import com.jcwhatever.nucleus.storage.IDataNode;
+import com.jcwhatever.nucleus.utils.DateUtils;
+import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
+import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.bukkit.rental.events.RentPayedEvent;
 import com.jcwhatever.bukkit.rental.events.RentPriceChangedEvent;
 import com.jcwhatever.bukkit.rental.region.RentRegion;

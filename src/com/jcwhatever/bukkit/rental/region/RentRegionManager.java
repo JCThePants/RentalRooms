@@ -24,10 +24,10 @@
 
 package com.jcwhatever.bukkit.rental.region;
 
-import com.jcwhatever.generic.GenericsLib;
-import com.jcwhatever.generic.utils.performance.SingleCache;
-import com.jcwhatever.generic.regions.IRegion;
-import com.jcwhatever.generic.storage.IDataNode;
+import com.jcwhatever.nucleus.Nucleus;
+import com.jcwhatever.nucleus.utils.performance.SingleCache;
+import com.jcwhatever.nucleus.regions.IRegion;
+import com.jcwhatever.nucleus.storage.IDataNode;
 import com.jcwhatever.bukkit.rental.Tenant;
 
 import org.bukkit.Location;
@@ -106,7 +106,7 @@ public class RentRegionManager {
 		if (_lastRegionByLocation.keyEquals(location))
 			return _lastRegionByLocation.getValue();
 		
-		List<IRegion> regions = GenericsLib.getRegionManager().getRegions(location);
+		List<IRegion> regions = Nucleus.getRegionManager().getRegions(location);
 		
 		for (IRegion readOnlyRegion : regions) {
 			if (RentRegion.class.isAssignableFrom(readOnlyRegion.getRegionClass())) {

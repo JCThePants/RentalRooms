@@ -24,13 +24,13 @@
 
 package com.jcwhatever.bukkit.rental.signs;
 
-import com.jcwhatever.generic.utils.EconomyUtils;
-import com.jcwhatever.generic.utils.player.PlayerUtils;
-import com.jcwhatever.generic.signs.SignContainer;
-import com.jcwhatever.generic.signs.SignHandler;
-import com.jcwhatever.generic.utils.DateUtils;
-import com.jcwhatever.generic.utils.DateUtils.TimeRound;
-import com.jcwhatever.generic.utils.PreCon;
+import com.jcwhatever.nucleus.utils.EconomyUtils;
+import com.jcwhatever.nucleus.utils.player.PlayerUtils;
+import com.jcwhatever.nucleus.signs.SignContainer;
+import com.jcwhatever.nucleus.signs.SignHandler;
+import com.jcwhatever.nucleus.utils.DateUtils;
+import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
+import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.Msg;
 import com.jcwhatever.bukkit.rental.RentalRooms;

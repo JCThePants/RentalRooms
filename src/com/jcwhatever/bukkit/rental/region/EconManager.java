@@ -24,8 +24,8 @@
 
 package com.jcwhatever.bukkit.rental.region;
 
-import com.jcwhatever.generic.utils.EconomyUtils;
-import com.jcwhatever.generic.storage.IDataNode;
+import com.jcwhatever.nucleus.utils.EconomyUtils;
+import com.jcwhatever.nucleus.storage.IDataNode;
 import org.bukkit.entity.Player;
 
 public class EconManager {

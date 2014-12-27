@@ -24,8 +24,8 @@
 
 package com.jcwhatever.bukkit.rental;
 
-import com.jcwhatever.generic.GenericsPlugin;
-import com.jcwhatever.generic.signs.SignManager;
+import com.jcwhatever.nucleus.NucleusPlugin;
+import com.jcwhatever.nucleus.signs.SignManager;
 import com.jcwhatever.bukkit.rental.commands.RentalCommandDispatcher;
 import com.jcwhatever.bukkit.rental.events.GlobalListener;
 import com.jcwhatever.bukkit.rental.region.RentRegionManager;
@@ -33,7 +33,7 @@ import com.jcwhatever.bukkit.rental.signs.RentalSignHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 
-public class RentalRooms extends GenericsPlugin {
+public class RentalRooms extends NucleusPlugin {
 
 	private static RentalRooms _instance;
 	private RentRegionManager _region;
