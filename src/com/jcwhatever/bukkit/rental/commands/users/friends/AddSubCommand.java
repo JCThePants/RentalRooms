@@ -49,7 +49,7 @@ public class AddSubCommand extends AbstractCommand {
 	@Override
 	public void execute(CommandSender sender, CommandArguments args) throws CommandException{
 
-		CommandException.assertNotConsole(this, sender);
+		CommandException.checkNotConsole(this, sender);
 				
 		Player p = (Player)sender;
 		

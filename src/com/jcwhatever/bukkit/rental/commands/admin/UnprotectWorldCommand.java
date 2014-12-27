@@ -50,7 +50,7 @@ public class UnprotectWorldCommand extends AbstractCommand {
 
 		if (args.getString("worldName").equals("$default")) {
 
-			CommandException.assertNotConsole(this, sender);
+			CommandException.checkNotConsole(this, sender);
 		    			
 			worldName = ((Player)sender).getWorld().getName(); 
 		}
