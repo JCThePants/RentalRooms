@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental;
 
-import com.jcwhatever.nucleus.utils.EconomyUtils;
+import com.jcwhatever.nucleus.utils.Economy;
 import com.jcwhatever.nucleus.storage.IDataNode;
 import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
@@ -107,7 +107,7 @@ public class BillCollector {
         if (rentAmount == 0)
             return true;
 
-        double playerBalance = EconomyUtils.getBalance(p.getUniqueId());
+        double playerBalance = Economy.getBalance(p.getUniqueId());
         return playerBalance >= rentAmount;
     }
 
@@ -136,7 +136,7 @@ public class BillCollector {
 		if (!canPay(region, p))
 			return false;
 
-		EconomyUtils.withdraw(p.getUniqueId(), rentAmount);
+		Economy.withdraw(p.getUniqueId(), rentAmount);
 
 		region.setPayed();
 		
@@ -149,7 +149,7 @@ public class BillCollector {
 
 		double rentAmount = getRentCost(region);
 
-		return EconomyUtils.formatAmount(rentAmount);
+		return Economy.formatAmount(rentAmount);
 	}
 	
 	private void loadSettings() {

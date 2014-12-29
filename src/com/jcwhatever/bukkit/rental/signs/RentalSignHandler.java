@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental.signs;
 
-import com.jcwhatever.nucleus.utils.EconomyUtils;
+import com.jcwhatever.nucleus.utils.Economy;
 import com.jcwhatever.nucleus.utils.player.PlayerUtils;
 import com.jcwhatever.nucleus.signs.SignContainer;
 import com.jcwhatever.nucleus.signs.SignHandler;
@@ -237,7 +237,7 @@ public class RentalSignHandler extends SignHandler {
 			
 			if (!signRegion.hasTenant()) {
 				double newRegionAmount = newAmount * signRegion.getRentSpaceVolume();
-				formatted = EconomyUtils.formatAmount(newRegionAmount);
+				formatted = Economy.formatAmount(newRegionAmount);
 			}
 			
 			sign.setLine(3, formatted);

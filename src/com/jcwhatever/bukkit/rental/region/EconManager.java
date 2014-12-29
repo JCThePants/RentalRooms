@@ -24,7 +24,7 @@
 
 package com.jcwhatever.bukkit.rental.region;
 
-import com.jcwhatever.nucleus.utils.EconomyUtils;
+import com.jcwhatever.nucleus.utils.Economy;
 import com.jcwhatever.nucleus.storage.IDataNode;
 import org.bukkit.entity.Player;
 
@@ -61,12 +61,12 @@ public class EconManager {
 		if (_rentAmount == 0)
 			return true;
 		
-		double playerBalance = EconomyUtils.getBalance(p.getUniqueId());
+		double playerBalance = Economy.getBalance(p.getUniqueId());
 		return playerBalance >= _rentAmount;
 	}
 	
 	public String getFormattedRentAmount() {
-		return EconomyUtils.formatAmount(_rentAmount);
+		return Economy.formatAmount(_rentAmount);
 	}
 	
 	public boolean charge(Player p) {
@@ -76,7 +76,7 @@ public class EconManager {
 		if (!canPay(p))
 			return false;
 		
-		EconomyUtils.withdraw(p.getUniqueId(), _rentAmount);
+		Economy.withdraw(p.getUniqueId(), _rentAmount);
 		return true;
 	}
 

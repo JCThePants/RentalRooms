@@ -28,7 +28,7 @@ import com.jcwhatever.nucleus.commands.AbstractCommand;
 import com.jcwhatever.nucleus.commands.CommandInfo;
 import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
 import com.jcwhatever.nucleus.commands.exceptions.InvalidArgumentException;
-import com.jcwhatever.nucleus.utils.EconomyUtils;
+import com.jcwhatever.nucleus.utils.Economy;
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.RentalRooms;
 
@@ -50,6 +50,6 @@ public class SetPriceCommand extends AbstractCommand {
 		
 		billCollector.setCostPerVolume(price);
 		
-		tellSuccess(sender, "Cost per volume set to {0}", EconomyUtils.formatAmount(price));
+		tellSuccess(sender, "Cost per volume set to {0}", Economy.formatAmount(price));
 	}
 }
