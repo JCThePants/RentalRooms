@@ -166,15 +166,10 @@ public class RentRegionManager {
 	}
 	
 	private void loadRegions() {
-		Set<String> regionNames = _settings.getSubNodeNames();
-		
-		if (regionNames == null)
-			return;
-		
-		for (String regionName : regionNames) {
-			IDataNode regionSettings = _settings.getNode(regionName);
-			
-			RentRegion region = new RentRegion(regionName, regionSettings);
+
+		for (IDataNode regionNode : _settings) {
+
+			RentRegion region = new RentRegion(regionNode.getName(), regionNode);
 			
 			if (region.hasTenant()) {
 				_tenantRegions.put(region.getTenant(), region);
