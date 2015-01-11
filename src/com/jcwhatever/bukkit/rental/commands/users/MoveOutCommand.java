@@ -38,7 +38,7 @@ import org.bukkit.permissions.PermissionDefault;
 
 @CommandInfo(
 		command="moveout", 
-		staticParams={"rentalName"},
+		staticParams={"rentalName="},
 		description="Move out of the rental unit you're standing in or specify.",
 		permissionDefault=PermissionDefault.TRUE)
 
@@ -55,18 +55,17 @@ public class MoveOutCommand extends AbstractCommand {
 		
 		
 		RentRegion region;
-		if (args.hasString("rentalName")) {
+		if (args.isDefaultValue("rentalName")) {
+			region = regionManager.getRegion(p.getLocation());
+			if (region == null) {
+				tellError(p, "Your not standing in a rental region.");
+				return; // finish
+			}
+		} else {
 			String rentalName = args.getString("rentalName");
 			region = regionManager.getRegion(rentalName);
 			if (region == null) {
 				tellError(p, "Rental region '{0}' not found.", rentalName);
-				return; // finish
-			}
-		}
-		else {
-			region = regionManager.getRegion(p.getLocation());
-			if (region == null) {
-				tellError(p, "Your not standing in a rental region.");
 				return; // finish
 			}
 		}
