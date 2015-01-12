@@ -50,6 +50,6 @@ public class SetPriceCommand extends AbstractCommand {
 		
 		billCollector.setCostPerVolume(price);
 		
-		tellSuccess(sender, "Cost per volume set to {0}", Economy.formatAmount(price));
+		tellSuccess(sender, "Cost per volume set to {0}", Economy.getCurrency().format(price));
 	}
 }

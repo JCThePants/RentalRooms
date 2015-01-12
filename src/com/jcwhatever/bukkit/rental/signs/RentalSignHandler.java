@@ -237,7 +237,7 @@ public class RentalSignHandler extends SignHandler {
 			
 			if (!signRegion.hasTenant()) {
 				double newRegionAmount = newAmount * signRegion.getRentSpaceVolume();
-				formatted = Economy.formatAmount(newRegionAmount);
+				formatted = Economy.getCurrency().format(newRegionAmount);
 			}
 			
 			sign.setLine(3, formatted);

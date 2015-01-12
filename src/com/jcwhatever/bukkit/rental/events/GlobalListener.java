@@ -193,7 +193,9 @@ public class GlobalListener implements Listener {
                 if (notified.contains(p))
                     continue;
 
-                Msg.tell(p, "Rent has increased from {0} to {1} per cubic volume.",  Economy.formatAmount(event.getOldAmount()), Economy.formatAmount(event.getNewAmount()));
+                Msg.tell(p, "Rent has increased from {0} to {1} per cubic volume.",
+                        Economy.getCurrency().format(event.getOldAmount()),
+                        Economy.getCurrency().format(event.getNewAmount()));
                 notified.add(p);
             }
         }

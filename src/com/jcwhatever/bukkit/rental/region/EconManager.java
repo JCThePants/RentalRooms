@@ -66,7 +66,7 @@ public class EconManager {
 	}
 	
 	public String getFormattedRentAmount() {
-		return Economy.formatAmount(_rentAmount);
+		return Economy.getCurrency().format(_rentAmount);
 	}
 	
 	public boolean charge(Player p) {

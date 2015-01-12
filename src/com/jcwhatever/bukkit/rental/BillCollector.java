@@ -149,7 +149,7 @@ public class BillCollector {
 
 		double rentAmount = getRentCost(region);
 
-		return Economy.formatAmount(rentAmount);
+		return Economy.getCurrency().format(rentAmount);
 	}
 	
 	private void loadSettings() {
