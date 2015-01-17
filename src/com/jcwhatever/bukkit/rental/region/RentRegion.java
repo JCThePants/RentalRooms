@@ -98,7 +98,7 @@ public class RentRegion extends RestorableRegion {
 		SimpleDateFormat dateFormat = new SimpleDateFormat();
 		
 		getDataNode().set("rent-expiration", dateFormat.format(_rentExpiration));
-		getDataNode().saveAsync(null);
+		getDataNode().save();
 	}
 	
 	public Date getExpirationDate() {
@@ -172,7 +172,7 @@ public class RentRegion extends RestorableRegion {
 
         //noinspection ConstantConditions
         getDataNode().set("rent-expiration", null);
-        getDataNode().saveAsync(null);
+        getDataNode().save();
 		
 		RentMoveOutEvent.callEvent(this, oldTenant);
 	}

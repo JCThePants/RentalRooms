@@ -74,7 +74,7 @@ public class RentRegionManager {
 	public boolean removeProtectedWorld(String worldName) {
 		if (_protectedWorlds.remove(worldName)) {
 			_settings.set("protected-worlds", new ArrayList<String>(_protectedWorlds));
-			_settings.saveAsync(null);
+			_settings.save();
 			return true;
 		}
 		return false;
@@ -83,7 +83,7 @@ public class RentRegionManager {
 	public boolean addProtectedWorld(World world) {
 		if (_protectedWorlds.add(world.getName())) {
 			_settings.set("protected-worlds", new ArrayList<String>(_protectedWorlds));
-			_settings.saveAsync(null);
+			_settings.save();
 			return true;
 		}
 		return false;
@@ -156,7 +156,7 @@ public class RentRegionManager {
 	    
 	    IDataNode node =  _settings.getNode(regionName);;
 	    node.remove();
-	    node.saveAsync(null);
+	    node.save();
 	    
 	    region.dispose();
 	    

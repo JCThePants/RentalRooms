@@ -65,7 +65,7 @@ public class BillCollector {
 	    _maxAdvanceDays = maxAdvance;
 	    
 	    _settings.set("max-advance-days", maxAdvance);
-	    _settings.saveAsync(null);
+	    _settings.save();
 	}
 
 	public double getCostPerVolume() {
@@ -81,7 +81,7 @@ public class BillCollector {
 
 		_costPerVolume = event.getNewAmount();
 		_settings.set("cost-per-volume", event.getNewAmount());
-		_settings.saveAsync(null);
+		_settings.save();
 	}
 
 	public int getRentCycle() {
@@ -91,7 +91,7 @@ public class BillCollector {
 	public void setRentCycle(int rentCycle) {
 		_rentCycle = rentCycle;
 		_settings.set("rent-cycle", rentCycle);
-		_settings.saveAsync(null);
+		_settings.save();
 	}
 
 	public double getRentCost(RentRegion region) {

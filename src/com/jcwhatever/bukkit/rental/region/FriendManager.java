@@ -78,7 +78,7 @@ public class FriendManager {
 
 		friendSettings.set("permissions", true);
 
-		friendSettings.saveAsync(null);
+		friendSettings.save();
 		_friends.add(friend);
 		_friendMap.put(friendId, friend);
 	}
@@ -101,7 +101,7 @@ public class FriendManager {
 			return;
 
 		friend.getSettings().clear();
-		friend.getSettings().saveAsync(null);
+		friend.getSettings().save();
 		_friends.remove(friend);
 	}
 
