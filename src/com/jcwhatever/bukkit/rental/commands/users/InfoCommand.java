@@ -30,7 +30,7 @@ import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
 import com.jcwhatever.nucleus.commands.exceptions.InvalidArgumentException;
 import com.jcwhatever.nucleus.messaging.ChatPaginator;
 import com.jcwhatever.bukkit.rental.Lang;
-import com.jcwhatever.nucleus.language.Localizable;
+import com.jcwhatever.nucleus.utils.language.Localizable;
 import com.jcwhatever.nucleus.utils.text.TextUtils.FormatTemplate;
 import com.jcwhatever.bukkit.rental.BillCollector;
 import com.jcwhatever.bukkit.rental.Msg;
