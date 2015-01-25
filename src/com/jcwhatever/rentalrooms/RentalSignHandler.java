@@ -24,12 +24,6 @@
 
 package com.jcwhatever.rentalrooms;
 
-import com.jcwhatever.rentalrooms.events.RentMoveInEvent;
-import com.jcwhatever.rentalrooms.events.RentMoveOutEvent;
-import com.jcwhatever.rentalrooms.events.RentPayedEvent;
-import com.jcwhatever.rentalrooms.events.RentPriceChangedEvent;
-import com.jcwhatever.rentalrooms.region.RentRegion;
-import com.jcwhatever.rentalrooms.region.RentRegionManager;
 import com.jcwhatever.nucleus.signs.SignContainer;
 import com.jcwhatever.nucleus.signs.SignHandler;
 import com.jcwhatever.nucleus.utils.DateUtils;
@@ -38,6 +32,12 @@ import com.jcwhatever.nucleus.utils.Economy;
 import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.nucleus.utils.language.Localizable;
 import com.jcwhatever.nucleus.utils.player.PlayerUtils;
+import com.jcwhatever.rentalrooms.events.RentMoveInEvent;
+import com.jcwhatever.rentalrooms.events.RentMoveOutEvent;
+import com.jcwhatever.rentalrooms.events.RentPayedEvent;
+import com.jcwhatever.rentalrooms.events.RentPriceChangedEvent;
+import com.jcwhatever.rentalrooms.region.RentRegion;
+import com.jcwhatever.rentalrooms.region.RentRegionManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -45,7 +45,6 @@ import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Date;
 import java.util.List;
@@ -91,19 +90,10 @@ public class RentalSignHandler extends SignHandler {
      * Constructor.
      */
     public RentalSignHandler () {
+        super(RentalRooms.getPlugin(), Lang.get(_SIGN_HEADER));
         _regionManager = RentalRooms.getRegionManager();
 
         Bukkit.getPluginManager().registerEvents(new EventListener(), RentalRooms.getPlugin());
-    }
-
-    @Override
-    public Plugin getPlugin() {
-        return RentalRooms.getPlugin();
-    }
-
-    @Override
-    public String getName() {
-        return Lang.get(_SIGN_HEADER);
     }
 
     @Override
@@ -127,19 +117,19 @@ public class RentalSignHandler extends SignHandler {
     }
 
     @Override
-    protected boolean onSignClick(Player player, SignContainer sign) {
+    protected SignClickResult onSignClick(Player player, SignContainer sign) {
 
         String regionName = sign.getRawLine(1);
 
         // get the region indicated on the sign (line 2, index 1)
         RentRegion region = _regionManager.get(regionName);
         if (region == null)
-            return false;
+            return SignClickResult.IGNORED;
 
         // check for tenant, show move in instructions if none.
         if (!region.hasTenant()) {
             Msg.tell(player, Lang.get(_MOVE_IN_INSTRUCTIONS));
-            return false;
+            return SignClickResult.IGNORED;
         }
 
         Tenant tenant = region.getTenant();
@@ -160,33 +150,35 @@ public class RentalSignHandler extends SignHandler {
             Msg.tell(player, Lang.get(_INFO_FOR_STRANGER, tenant.getPlayerName()));
         }
 
-        return false;
+        return SignClickResult.HANDLED;
     }
 
     @Override
-    public boolean onSignChange(Player p, SignContainer sign) {
+    public SignChangeResult onSignChange(Player p, SignContainer sign) {
         if (!p.isOp())
-            return false;
+            return SignChangeResult.INVALID;
 
         String regionName = sign.getRawLine(1);
 
         // get the region indicated on the sign (line 2, index 1)
         RentRegion region = _regionManager.get(regionName);
         if (region == null)
-            return false;
+            return SignChangeResult.INVALID;
 
         setSignInfoForRegion(region, sign);
 
-        return true;
+        return SignChangeResult.VALID;
     }
 
     @Override
-    public boolean onSignBreak(Player p, SignContainer sign) {
+    public SignBreakResult onSignBreak(Player p, SignContainer sign) {
         String regionName = sign.getRawLine(1);
 
         RentRegion region = _regionManager.get(regionName);
 
-        return region == null || p.isOp() && region.isEditModeOn();
+        return region == null || p.isOp() && region.isEditModeOn()
+                ? SignBreakResult.ALLOW
+                : SignBreakResult.DENY;
     }
 
     @Override
@@ -206,8 +198,6 @@ public class RentalSignHandler extends SignHandler {
         long daysLeft = hoursLeft / 24;
 
         List<SignContainer> signs = RentalRooms.getSignManager().getSigns(getName());
-        if (signs == null)
-            return;
 
         for (SignContainer sign : signs) {
             if (isRegionSign(region, sign.getSign())) {
@@ -236,8 +226,6 @@ public class RentalSignHandler extends SignHandler {
     private void updateSignOwners(RentRegion region) {
 
         List<SignContainer> signs = RentalRooms.getSignManager().getSigns(getName());
-        if (signs == null)
-            return;
 
         for (SignContainer sign : signs) {
             if (region == null || isRegionSign(region, sign.getSign())) {
@@ -260,8 +248,6 @@ public class RentalSignHandler extends SignHandler {
     private void updateSignPrices(double newAmount) {
 
         List<SignContainer> signs = RentalRooms.getSignManager().getSigns(getName());
-        if (signs == null)
-            return;
 
         for (SignContainer sign : signs) {
 
