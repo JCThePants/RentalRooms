@@ -24,12 +24,6 @@
 
 package com.jcwhatever.rentalrooms.region;
 
-import com.jcwhatever.rentalrooms.BillCollector;
-import com.jcwhatever.rentalrooms.Msg;
-import com.jcwhatever.rentalrooms.RentalRooms;
-import com.jcwhatever.rentalrooms.Tenant;
-import com.jcwhatever.rentalrooms.events.RentMoveInEvent;
-import com.jcwhatever.rentalrooms.events.RentMoveOutEvent;
 import com.jcwhatever.nucleus.regions.BuildMethod;
 import com.jcwhatever.nucleus.regions.RestorableRegion;
 import com.jcwhatever.nucleus.storage.IDataNode;
@@ -42,6 +36,12 @@ import com.jcwhatever.nucleus.utils.file.NucleusByteReader;
 import com.jcwhatever.nucleus.utils.file.NucleusByteWriter;
 import com.jcwhatever.nucleus.utils.pathing.InteriorFinder;
 import com.jcwhatever.nucleus.utils.pathing.InteriorFinder.InteriorResults;
+import com.jcwhatever.rentalrooms.BillCollector;
+import com.jcwhatever.rentalrooms.Msg;
+import com.jcwhatever.rentalrooms.RentalRooms;
+import com.jcwhatever.rentalrooms.Tenant;
+import com.jcwhatever.rentalrooms.events.RentMoveInEvent;
+import com.jcwhatever.rentalrooms.events.RentMoveOutEvent;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -50,6 +50,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -429,22 +430,26 @@ public class RentRegion extends RestorableRegion {
         final RentRegion region;
         final File file;
         List<Location> interior;
+        NucleusByteReader reader;
 
         LoadInterior(RentRegion region, File file) {
             this.region = region;
             this.file = file;
+
+            try {
+                this.reader = new NucleusByteReader(new FileInputStream(file));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
         public void run() {
-            NucleusByteReader reader = null;
+
+            if (reader == null)
+                return;
 
             try {
-
-                // synchronized to prevent linkage error due to async class loading
-                synchronized (NucleusByteReader.class) {
-                    reader = new NucleusByteReader(new FileInputStream(file));
-                }
 
                 int fileVersion = reader.getInteger(); // get version
 
