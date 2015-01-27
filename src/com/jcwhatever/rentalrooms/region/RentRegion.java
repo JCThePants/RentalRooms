@@ -195,25 +195,7 @@ public class RentRegion extends RestorableRegion {
 
         super.setOwner(null);
 
-        Tenant oldTenant = _tenant;
-
-        _tenant = null;
-
-        if (this.canRestore()) {
-            try {
-                this.restoreData(BuildMethod.PERFORMANCE);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        _rentExpiration = null;
-
-        //noinspection ConstantConditions
-        getDataNode().set("rent-expiration", null);
-        getDataNode().save();
-
-        RentMoveOutEvent.call(this, this, oldTenant);
+        evictionCleanup();
     }
 
     /**
@@ -337,12 +319,14 @@ public class RentRegion extends RestorableRegion {
     protected boolean onOwnerChanged(UUID oldOwnerId, UUID ownerId) {
 
         if (_tenant != null) {
-            evict();
+            evictionCleanup();
         }
 
-        _tenant = Tenant.register(ownerId, this);
+        if (ownerId != null) {
+            _tenant = Tenant.register(ownerId, this);
 
-        RentMoveInEvent.call(this, this, _tenant);
+            RentMoveInEvent.call(this, this, _tenant);
+        }
 
         return true;
     }
@@ -374,6 +358,30 @@ public class RentRegion extends RestorableRegion {
                 e.printStackTrace();
             }
         }
+    }
+
+    // perform eviction actions without changing the region owner
+    // and causing a region owner change event.
+    private void evictionCleanup() {
+        Tenant oldTenant = _tenant;
+
+        _tenant = null;
+
+        if (this.canRestore()) {
+            try {
+                this.restoreData(BuildMethod.PERFORMANCE);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        _rentExpiration = null;
+
+        //noinspection ConstantConditions
+        getDataNode().set("rent-expiration", null);
+        getDataNode().save();
+
+        RentMoveOutEvent.call(this, this, oldTenant);
     }
 
     // get the regions interior cache file.
