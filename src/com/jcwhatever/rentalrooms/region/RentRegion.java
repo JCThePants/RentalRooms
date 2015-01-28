@@ -363,6 +363,10 @@ public class RentRegion extends RestorableRegion {
     // perform eviction actions without changing the region owner
     // and causing a region owner change event.
     private void evictionCleanup() {
+
+        if (_tenant == null)
+            return;
+
         Tenant oldTenant = _tenant;
 
         _tenant = null;

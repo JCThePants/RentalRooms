@@ -51,7 +51,7 @@ import org.bukkit.permissions.PermissionDefault;
 public class MoveOutCommand extends AbstractCommand {
 
     @Localizable static final String _NOT_STANDING_IN_RENTAL =
-            "Your not standing in a rental region. Stand in the region to move " +
+            "You're not standing in a rental region. Stand in the region to move " +
                     "out of or specify the rental name.";
 
     @Localizable static final String _REGION_NOT_FOUND =

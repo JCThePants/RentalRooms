@@ -24,6 +24,7 @@
 
 package com.jcwhatever.rentalrooms;
 
+import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.rentalrooms.region.RentRegion;
 import com.jcwhatever.nucleus.utils.player.PlayerUtils;
 
@@ -54,6 +55,8 @@ public class Tenant {
      */
     @Nullable
     public static Tenant get(Player player) {
+        PreCon.notNull(player);
+
         return get(player.getUniqueId());
     }
 
@@ -65,6 +68,8 @@ public class Tenant {
      * @return  Null if the player is not a tenant of any rent regions.
      */
     public static Tenant get(UUID playerId) {
+        PreCon.notNull(playerId);
+
         return _tenants.get(playerId);
     }
 
@@ -77,6 +82,8 @@ public class Tenant {
      * @return  The players {@code Tenant} instance.
      */
     public static Tenant register(Player player, RentRegion region) {
+        PreCon.notNull(player);
+
         return register(player.getUniqueId(), region);
     }
 
@@ -89,6 +96,9 @@ public class Tenant {
      * @return  The players {@code Tenant} instance.
      */
     public static Tenant register(UUID playerId, RentRegion region) {
+        PreCon.notNull(playerId);
+        PreCon.notNull(region);
+
         Tenant tenant = get(playerId);
         if (tenant == null) {
             tenant = new Tenant(playerId);
