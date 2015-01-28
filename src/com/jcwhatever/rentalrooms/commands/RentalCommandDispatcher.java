@@ -24,6 +24,7 @@
 
 package com.jcwhatever.rentalrooms.commands;
 
+import com.jcwhatever.nucleus.commands.CommandDispatcher;
 import com.jcwhatever.rentalrooms.commands.admin.CreateCommand;
 import com.jcwhatever.rentalrooms.commands.admin.DelCommand;
 import com.jcwhatever.rentalrooms.commands.admin.EditModeCommand;
@@ -40,8 +41,6 @@ import com.jcwhatever.rentalrooms.commands.users.ListCommand;
 import com.jcwhatever.rentalrooms.commands.users.MoveInCommand;
 import com.jcwhatever.rentalrooms.commands.users.MoveOutCommand;
 import com.jcwhatever.rentalrooms.commands.users.PayCommand;
-import com.jcwhatever.rentalrooms.commands.users.friends.FriendsCommand;
-import com.jcwhatever.nucleus.commands.CommandDispatcher;
 
 import org.bukkit.plugin.Plugin;
 
@@ -68,7 +67,6 @@ public class RentalCommandDispatcher extends CommandDispatcher {
         this.registerCommand(SetRentCycleCommand.class);
         this.registerCommand(ListCommand.class);
         this.registerCommand(PayCommand.class);
-        this.registerCommand(FriendsCommand.class);
         this.registerCommand(DelCommand.class);
         this.registerCommand(SetRegionCommand.class);
         this.registerCommand(SetMaxAdvanceCommand.class);

@@ -24,10 +24,13 @@
 
 package com.jcwhatever.rentalrooms.region;
 
+import com.jcwhatever.nucleus.providers.friends.FriendLevel;
+import com.jcwhatever.nucleus.providers.friends.IFriend;
 import com.jcwhatever.nucleus.regions.BuildMethod;
 import com.jcwhatever.nucleus.regions.RestorableRegion;
 import com.jcwhatever.nucleus.storage.IDataNode;
 import com.jcwhatever.nucleus.utils.DateUtils;
+import com.jcwhatever.nucleus.utils.Friends;
 import com.jcwhatever.nucleus.utils.LocationUtils;
 import com.jcwhatever.nucleus.utils.MetaKey;
 import com.jcwhatever.nucleus.utils.PreCon;
@@ -74,7 +77,6 @@ public class RentRegion extends RestorableRegion {
     private Set<Location> _tenantArea;
     private boolean _isEditModeOn = false;
     private Date _rentExpiration = null;
-    private FriendManager _friendManager;
 
     private final IDataNode _dataNode;
 
@@ -95,16 +97,7 @@ public class RentRegion extends RestorableRegion {
         load();
         loadInterior();
 
-        _friendManager = new FriendManager(this, dataNode.getNode("friends"));
-
         setMeta(REGION_META_KEY, this);
-    }
-
-    /**
-     * Get the regions friend manager.
-     */
-    public FriendManager getFriendManager() {
-        return _friendManager;
     }
 
     /**
@@ -241,15 +234,19 @@ public class RentRegion extends RestorableRegion {
         if (_isEditModeOn)
             return true;
 
-        location = LocationUtils.getBlockLocation(location);
-
         if (_tenant == null || playerId == null || location == null || !isDefined())
             return false;
 
-        // tenant equals method works with UUID's
-        return (_tenant.equals(playerId) || _friendManager.isFriend(playerId))
-                && _tenantArea.contains(location);
+        location = LocationUtils.getBlockLocation(location);
 
+        if (!_tenantArea.contains(location))
+            return false;
+
+        if (_tenant.getPlayerID().equals(playerId))
+            return true;
+
+        IFriend friend = Friends.getFriend(_tenant.getPlayerID(), playerId);
+        return friend != null && friend.getLevel() != FriendLevel.CASUAL;
     }
 
     /**
@@ -270,7 +267,7 @@ public class RentRegion extends RestorableRegion {
      */
     public boolean isTenantOrFriend(UUID playerId) {
         return _tenant != null &&
-                (_tenant.equals(playerId) || _friendManager.isFriend(playerId));
+                (_tenant.getPlayerID().equals(playerId) || Friends.isFriend(_tenant.getPlayerID(), playerId));
     }
 
     /**
