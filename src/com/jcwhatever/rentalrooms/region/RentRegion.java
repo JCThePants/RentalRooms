@@ -71,6 +71,8 @@ import java.util.UUID;
 public class RentRegion extends RestorableRegion {
 
     private static final int INTERIOR_FILE_VERSION = 1;
+    private static final Location INTERACT_LOCATION = new Location(null, 0, 0, 0);
+    
     public static final MetaKey<RentRegion> REGION_META_KEY = new MetaKey<RentRegion>(RentRegion.class);
 
     private Tenant _tenant;
@@ -237,7 +239,7 @@ public class RentRegion extends RestorableRegion {
         if (_tenant == null || playerId == null || location == null || !isDefined())
             return false;
 
-        location = LocationUtils.getBlockLocation(location);
+        location = LocationUtils.getBlockLocation(location, INTERACT_LOCATION);
 
         if (!_tenantArea.contains(location))
             return false;
