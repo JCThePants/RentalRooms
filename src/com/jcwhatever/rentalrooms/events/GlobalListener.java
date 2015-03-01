@@ -24,15 +24,16 @@
 
 package com.jcwhatever.rentalrooms.events;
 
+import com.jcwhatever.nucleus.utils.language.Localizable;
+import com.jcwhatever.nucleus.utils.materials.Materials;
 import com.jcwhatever.rentalrooms.Lang;
 import com.jcwhatever.rentalrooms.Msg;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.region.RentRegion;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
-import com.jcwhatever.nucleus.utils.extended.MaterialExt;
-import com.jcwhatever.nucleus.utils.language.Localizable;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
@@ -154,14 +155,15 @@ public class GlobalListener implements Listener {
         // Goal: Allow opening and closing doors and chests in non-rented regions
 
         Block block = event.getClickedBlock();
-        MaterialExt materialExt = MaterialExt.from(block.getType());
+        Material material = block.getType();
+
         boolean isDeviceInteraction =
                 (event.getAction() == Action.RIGHT_CLICK_BLOCK ||
                         event.getAction() == Action.PHYSICAL) &&
 
-                        (materialExt.isOpenableBoundary() ||
-                                materialExt.hasGUI() ||
-                                materialExt.isRedstoneCompatible());
+                        (Materials.isOpenable(material) ||
+                                Materials.hasGUI(material) ||
+                                Materials.isRedstoneCompatible(material));
 
         RentRegion region = _manager.get(location);
         if (region == null) {
