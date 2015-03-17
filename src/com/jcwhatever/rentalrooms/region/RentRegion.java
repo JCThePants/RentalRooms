@@ -37,8 +37,8 @@ import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.nucleus.utils.Scheduler;
 import com.jcwhatever.nucleus.utils.file.NucleusByteReader;
 import com.jcwhatever.nucleus.utils.file.NucleusByteWriter;
-import com.jcwhatever.nucleus.utils.pathing.InteriorFinder;
-import com.jcwhatever.nucleus.utils.pathing.InteriorFinder.InteriorResults;
+import com.jcwhatever.nucleus.utils.astar.InteriorFinder;
+import com.jcwhatever.nucleus.utils.astar.InteriorFinder.InteriorResults;
 import com.jcwhatever.rentalrooms.BillCollector;
 import com.jcwhatever.rentalrooms.Msg;
 import com.jcwhatever.rentalrooms.RentalRooms;
@@ -289,7 +289,7 @@ public class RentRegion extends RestorableRegion {
         InteriorFinder finder = new InteriorFinder();
         InteriorResults results = finder.searchInterior(start, this);
 
-        Set<Location> interior = results.getNodes();
+        Set<Location> interior = results.getInterior();
         _tenantArea.addAll(interior);
 
         saveInterior();
