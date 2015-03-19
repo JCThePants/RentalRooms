@@ -24,8 +24,8 @@
 
 package com.jcwhatever.rentalrooms;
 
-import com.jcwhatever.nucleus.signs.SignContainer;
-import com.jcwhatever.nucleus.signs.SignHandler;
+import com.jcwhatever.nucleus.utils.signs.SignContainer;
+import com.jcwhatever.nucleus.utils.signs.SignHandler;
 import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
 import com.jcwhatever.nucleus.utils.Economy;

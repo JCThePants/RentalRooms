@@ -25,7 +25,7 @@
 package com.jcwhatever.rentalrooms;
 
 import com.jcwhatever.nucleus.NucleusPlugin;
-import com.jcwhatever.nucleus.signs.SignManager;
+import com.jcwhatever.nucleus.utils.signs.SignManager;
 import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.utils.language.Localizable;
 import com.jcwhatever.rentalrooms.commands.RentalCommandDispatcher;
