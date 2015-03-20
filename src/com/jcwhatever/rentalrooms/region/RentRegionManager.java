@@ -30,7 +30,7 @@ import com.jcwhatever.nucleus.storage.IDataNode;
 import com.jcwhatever.nucleus.utils.CollectionUtils;
 import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.nucleus.utils.managers.NamedInsensitiveDataManager;
-import com.jcwhatever.nucleus.utils.performance.SingleCache;
+import com.jcwhatever.nucleus.utils.performance.EntryCache;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -45,7 +45,7 @@ import javax.annotation.Nullable;
 public class RentRegionManager extends NamedInsensitiveDataManager<RentRegion> {
 
     private final Set<String> _protectedWorlds = new HashSet<String>(10);
-    private final SingleCache<Location, RentRegion> _lastRegionByLocation = new SingleCache<Location, RentRegion>();
+    private final EntryCache<Location, RentRegion> _lastRegionByLocation = new EntryCache<Location, RentRegion>();
 
     public RentRegionManager(IDataNode dataNode) {
         super(dataNode.getNode("regions"), true);
