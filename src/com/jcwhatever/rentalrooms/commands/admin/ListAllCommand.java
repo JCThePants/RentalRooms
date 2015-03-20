@@ -44,9 +44,11 @@ import java.util.Collection;
 @CommandInfo(
         command="listall",
         staticParams={"page=1"},
+        floatingParams={"search="},
         description="List all rental regions.",
         paramDescriptions = {
-                "page= {PAGE}"
+                "page= {PAGE}",
+                "search= Optional. Specify a search filter."
         })
 public class ListAllCommand extends AbstractCommand {
 
@@ -70,6 +72,9 @@ public class ListAllCommand extends AbstractCommand {
                     ? region.getTenant().getPlayerName()
                     : noTenantLabel);
         }
+
+        if (!args.isDefaultValue("search"))
+            pagin.setSearchTerm(args.getString("search"));
 
         pagin.show(sender, page, FormatTemplate.LIST_ITEM);
     }
