@@ -24,7 +24,7 @@
 
 package com.jcwhatever.rentalrooms.region;
 
-import com.jcwhatever.nucleus.providers.friends.FriendLevel;
+import com.jcwhatever.nucleus.providers.friends.FriendLevels;
 import com.jcwhatever.nucleus.providers.friends.IFriend;
 import com.jcwhatever.nucleus.regions.BuildMethod;
 import com.jcwhatever.nucleus.regions.RestorableRegion;
@@ -247,8 +247,8 @@ public class RentRegion extends RestorableRegion {
         if (_tenant.getPlayerID().equals(playerId))
             return true;
 
-        IFriend friend = Friends.getFriend(_tenant.getPlayerID(), playerId);
-        return friend != null && friend.getLevel() != FriendLevel.CASUAL;
+        IFriend friend = Friends.get(_tenant.getPlayerID(), playerId);
+        return friend != null && friend.getRawLevel() < FriendLevels.CLOSE.getRawLevel();
     }
 
     /**
