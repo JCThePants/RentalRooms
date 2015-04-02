@@ -24,14 +24,15 @@
 
 package com.jcwhatever.rentalrooms;
 
-import com.jcwhatever.nucleus.utils.signs.SignContainer;
-import com.jcwhatever.nucleus.utils.signs.SignHandler;
+import com.jcwhatever.nucleus.Nucleus;
 import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
 import com.jcwhatever.nucleus.utils.Economy;
 import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.nucleus.utils.language.Localizable;
 import com.jcwhatever.nucleus.utils.player.PlayerUtils;
+import com.jcwhatever.nucleus.utils.signs.ISignContainer;
+import com.jcwhatever.nucleus.utils.signs.SignHandler;
 import com.jcwhatever.rentalrooms.events.RentMoveInEvent;
 import com.jcwhatever.rentalrooms.events.RentMoveOutEvent;
 import com.jcwhatever.rentalrooms.events.RentPayedEvent;
@@ -117,7 +118,7 @@ public class RentalSignHandler extends SignHandler {
     }
 
     @Override
-    protected SignClickResult onSignClick(Player player, SignContainer sign) {
+    protected SignClickResult onSignClick(Player player, ISignContainer sign) {
 
         String regionName = sign.getRawLine(1);
 
@@ -154,8 +155,8 @@ public class RentalSignHandler extends SignHandler {
     }
 
     @Override
-    public SignChangeResult onSignChange(Player p, SignContainer sign) {
-        if (!p.isOp())
+    public SignChangeResult onSignChange(Player player, ISignContainer sign) {
+        if (!player.isOp())
             return SignChangeResult.INVALID;
 
         String regionName = sign.getRawLine(1);
@@ -171,18 +172,18 @@ public class RentalSignHandler extends SignHandler {
     }
 
     @Override
-    public SignBreakResult onSignBreak(Player p, SignContainer sign) {
+    public SignBreakResult onSignBreak(Player player, ISignContainer sign) {
         String regionName = sign.getRawLine(1);
 
         RentRegion region = _regionManager.get(regionName);
 
-        return region == null || p.isOp() && region.isEditModeOn()
+        return region == null || player.isOp() && region.isEditModeOn()
                 ? SignBreakResult.ALLOW
                 : SignBreakResult.DENY;
     }
 
     @Override
-    public void onSignLoad(SignContainer sign) {
+    public void onSignLoad(ISignContainer sign) {
         // do nothing
     }
 
@@ -197,9 +198,9 @@ public class RentalSignHandler extends SignHandler {
         long hoursLeft = DateUtils.getDeltaHours(new Date(), expires, TimeRound.ROUND_DOWN);
         long daysLeft = hoursLeft / 24;
 
-        List<SignContainer> signs = RentalRooms.getSignManager().getSigns(getName());
+        List<ISignContainer> signs = Nucleus.getSignManager().getSigns(getName());
 
-        for (SignContainer sign : signs) {
+        for (ISignContainer sign : signs) {
             if (isRegionSign(region, sign.getSign())) {
 
                 if (hoursLeft <= 1) {
@@ -225,9 +226,9 @@ public class RentalSignHandler extends SignHandler {
     // update the region owner indicated on all signs for the specified region.
     private void updateSignOwners(RentRegion region) {
 
-        List<SignContainer> signs = RentalRooms.getSignManager().getSigns(getName());
+        List<ISignContainer> signs = Nucleus.getSignManager().getSigns(getName());
 
-        for (SignContainer sign : signs) {
+        for (ISignContainer sign : signs) {
             if (region == null || isRegionSign(region, sign.getSign())) {
 
                 RentRegion signRegion = region != null
@@ -247,9 +248,9 @@ public class RentalSignHandler extends SignHandler {
     // update price indicated on all rent region signs
     private void updateSignPrices(double newAmount) {
 
-        List<SignContainer> signs = RentalRooms.getSignManager().getSigns(getName());
+        List<ISignContainer> signs = Nucleus.getSignManager().getSigns(getName());
 
-        for (SignContainer sign : signs) {
+        for (ISignContainer sign : signs) {
 
             RentRegion signRegion = _regionManager.get(sign.getLine(1));
             if (signRegion == null)
@@ -268,7 +269,7 @@ public class RentalSignHandler extends SignHandler {
     }
 
     // update the info on a sign to reflect the info on the specified rent region.
-    private void setSignInfoForRegion(RentRegion region, SignContainer sign) {
+    private void setSignInfoForRegion(RentRegion region, ISignContainer sign) {
         PreCon.notNull(region);
 
         BillCollector billCollector = RentalRooms.getBillCollector();

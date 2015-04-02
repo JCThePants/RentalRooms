@@ -25,9 +25,9 @@
 package com.jcwhatever.rentalrooms;
 
 import com.jcwhatever.nucleus.NucleusPlugin;
-import com.jcwhatever.nucleus.utils.signs.SignManager;
 import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.utils.language.Localizable;
+import com.jcwhatever.nucleus.utils.signs.SignUtils;
 import com.jcwhatever.rentalrooms.commands.RentalCommandDispatcher;
 import com.jcwhatever.rentalrooms.events.GlobalListener;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
@@ -47,7 +47,6 @@ public class RentalRooms extends NucleusPlugin {
     private static RentalRooms _instance;
     private RentRegionManager _regionManager;
     private BillCollector _billCollector;
-    private SignManager _signManager;
     private RentalSignHandler _signHandler;
 
     /**
@@ -79,13 +78,6 @@ public class RentalRooms extends NucleusPlugin {
     }
 
     /**
-     * Get the sign manager.
-     */
-    public static SignManager getSignManager() {
-        return _instance._signManager;
-    }
-
-    /**
      * Get the sign handler.
      */
     public static RentalSignHandler getSignHandler() {
@@ -113,11 +105,10 @@ public class RentalRooms extends NucleusPlugin {
         _instance = this;
 
         _regionManager = new RentRegionManager(getDataNode().getNode("regions"));
-        _signManager = new SignManager(this, getDataNode().getNode("signs.rental"));
         _billCollector = new BillCollector(this.getDataNode().getNode("econ"));
 
         _signHandler = new RentalSignHandler();
-        _signManager.registerSignType(_signHandler);
+        SignUtils.registerHandler(_signHandler);
 
         registerEventListeners(new GlobalListener(_regionManager));
         registerCommands(new RentalCommandDispatcher(this));
@@ -126,5 +117,7 @@ public class RentalRooms extends NucleusPlugin {
     @Override
     protected void onDisablePlugin() {
         _instance = null;
+
+        SignUtils.unregisterHandler(_signHandler);
     }
 }
