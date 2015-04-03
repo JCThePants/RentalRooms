@@ -27,7 +27,7 @@ package com.jcwhatever.rentalrooms;
 import com.jcwhatever.nucleus.NucleusPlugin;
 import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.utils.language.Localizable;
-import com.jcwhatever.nucleus.utils.signs.SignUtils;
+import com.jcwhatever.nucleus.utils.SignUtils;
 import com.jcwhatever.rentalrooms.commands.RentalCommandDispatcher;
 import com.jcwhatever.rentalrooms.events.GlobalListener;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
