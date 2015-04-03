@@ -25,7 +25,7 @@
 package com.jcwhatever.rentalrooms.region;
 
 import com.jcwhatever.nucleus.Nucleus;
-import com.jcwhatever.nucleus.regions.selection.IRegionSelection;
+import com.jcwhatever.nucleus.providers.regionselect.IRegionSelection;
 import com.jcwhatever.nucleus.storage.IDataNode;
 import com.jcwhatever.nucleus.utils.CollectionUtils;
 import com.jcwhatever.nucleus.utils.PreCon;

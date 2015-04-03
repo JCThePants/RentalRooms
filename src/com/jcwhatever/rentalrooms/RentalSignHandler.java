@@ -27,7 +27,7 @@ package com.jcwhatever.rentalrooms;
 import com.jcwhatever.nucleus.Nucleus;
 import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
-import com.jcwhatever.nucleus.utils.Economy;
+import com.jcwhatever.nucleus.providers.economy.Economy;
 import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.nucleus.utils.language.Localizable;
 import com.jcwhatever.nucleus.utils.player.PlayerUtils;

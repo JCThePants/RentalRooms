@@ -31,10 +31,10 @@ import com.jcwhatever.rentalrooms.region.RentRegionManager;
 import com.jcwhatever.nucleus.storage.IDataNode;
 import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
-import com.jcwhatever.nucleus.utils.Economy;
+import com.jcwhatever.nucleus.providers.economy.Economy;
 import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.nucleus.utils.Rand;
-import com.jcwhatever.nucleus.utils.Scheduler;
+import com.jcwhatever.nucleus.managed.scheduler.Scheduler;
 import com.jcwhatever.nucleus.utils.language.Localizable;
 
 import org.bukkit.entity.Player;
