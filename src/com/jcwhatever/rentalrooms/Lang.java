@@ -24,7 +24,7 @@
 
 package com.jcwhatever.rentalrooms;
 
-import com.jcwhatever.nucleus.utils.language.Localized;
+import com.jcwhatever.nucleus.managed.language.Localized;
 
 /**
  * Static convenience methods for localization.
@@ -43,6 +43,6 @@ public class Lang {
      */
     @Localized
     public static String get(String text, Object... args) {
-        return RentalRooms.getPlugin().getLanguageManager().get(text, args);
+        return RentalRooms.getPlugin().getLanguageContext().get(text, args);
     }
 }

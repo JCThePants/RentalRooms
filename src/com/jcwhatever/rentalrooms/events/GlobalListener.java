@@ -24,7 +24,7 @@
 
 package com.jcwhatever.rentalrooms.events;
 
-import com.jcwhatever.nucleus.utils.language.Localizable;
+import com.jcwhatever.nucleus.managed.language.Localizable;
 import com.jcwhatever.nucleus.utils.materials.Materials;
 import com.jcwhatever.rentalrooms.Lang;
 import com.jcwhatever.rentalrooms.Msg;
