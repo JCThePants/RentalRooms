@@ -24,16 +24,17 @@
 
 package com.jcwhatever.rentalrooms.commands.users;
 
+import com.jcwhatever.nucleus.managed.commands.CommandInfo;
+import com.jcwhatever.nucleus.managed.commands.arguments.ICommandArguments;
+import com.jcwhatever.nucleus.managed.commands.exceptions.CommandException;
+import com.jcwhatever.nucleus.managed.commands.mixins.IExecutableCommand;
+import com.jcwhatever.nucleus.managed.commands.utils.AbstractCommand;
+import com.jcwhatever.nucleus.managed.language.Localizable;
 import com.jcwhatever.rentalrooms.BillCollector;
 import com.jcwhatever.rentalrooms.Lang;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.region.RentRegion;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
-import com.jcwhatever.nucleus.commands.AbstractCommand;
-import com.jcwhatever.nucleus.commands.CommandInfo;
-import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
-import com.jcwhatever.nucleus.commands.exceptions.CommandException;
-import com.jcwhatever.nucleus.managed.language.Localizable;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -46,7 +47,7 @@ import java.util.UUID;
         description="Move in to the rental unit you're standing in.",
         permissionDefault=PermissionDefault.TRUE)
 
-public class MoveInCommand extends AbstractCommand {
+public class MoveInCommand extends AbstractCommand implements IExecutableCommand {
 
     @Localizable static final String _NOT_STANDING_IN_RENTAL =
             "You're not standing in a rental unit. Stand in the unit you want to rent " +
@@ -69,9 +70,9 @@ public class MoveInCommand extends AbstractCommand {
                     "and you will be expected to pay the rent again in {1: days} real life days.";
 
     @Override
-    public void execute(CommandSender sender, CommandArguments args) throws CommandException {
+    public void execute(CommandSender sender, ICommandArguments args) throws CommandException {
 
-        CommandException.checkNotConsole(this, sender);
+        CommandException.checkNotConsole(getPlugin(), this, sender);
 
         Player p = (Player)sender;
 

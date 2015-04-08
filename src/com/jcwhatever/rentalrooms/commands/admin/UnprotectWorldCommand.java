@@ -24,14 +24,15 @@
 
 package com.jcwhatever.rentalrooms.commands.admin;
 
+import com.jcwhatever.nucleus.managed.commands.CommandInfo;
+import com.jcwhatever.nucleus.managed.commands.arguments.ICommandArguments;
+import com.jcwhatever.nucleus.managed.commands.exceptions.CommandException;
+import com.jcwhatever.nucleus.managed.commands.mixins.IExecutableCommand;
+import com.jcwhatever.nucleus.managed.commands.utils.AbstractCommand;
+import com.jcwhatever.nucleus.managed.language.Localizable;
 import com.jcwhatever.rentalrooms.Lang;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
-import com.jcwhatever.nucleus.commands.AbstractCommand;
-import com.jcwhatever.nucleus.commands.CommandInfo;
-import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
-import com.jcwhatever.nucleus.commands.exceptions.CommandException;
-import com.jcwhatever.nucleus.managed.language.Localizable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -43,7 +44,7 @@ import org.bukkit.entity.Player;
         staticParams={"worldName="},
         description="Remove world from protection.")
 
-public class UnprotectWorldCommand extends AbstractCommand {
+public class UnprotectWorldCommand extends AbstractCommand implements IExecutableCommand {
 
     @Localizable static final String _WORLD_NOT_FOUND =
             "A world with the name '{0: world name}' was not found.";
@@ -55,13 +56,13 @@ public class UnprotectWorldCommand extends AbstractCommand {
             "World '{0: world name}' is no longer a protected world.";
 
     @Override
-    public void execute(CommandSender sender, CommandArguments args) throws CommandException {
+    public void execute(CommandSender sender, ICommandArguments args) throws CommandException {
 
         String worldName;
 
         if (args.isDefaultValue("worldName")) {
 
-            CommandException.checkNotConsole(this, sender);
+            CommandException.checkNotConsole(getPlugin(), this, sender);
 
             worldName = ((Player)sender).getWorld().getName();
         }

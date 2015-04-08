@@ -24,6 +24,14 @@
 
 package com.jcwhatever.rentalrooms.commands.users;
 
+import com.jcwhatever.nucleus.managed.commands.CommandInfo;
+import com.jcwhatever.nucleus.managed.commands.arguments.ICommandArguments;
+import com.jcwhatever.nucleus.managed.commands.exceptions.InvalidArgumentException;
+import com.jcwhatever.nucleus.managed.commands.mixins.IExecutableCommand;
+import com.jcwhatever.nucleus.managed.commands.utils.AbstractCommand;
+import com.jcwhatever.nucleus.managed.language.Localizable;
+import com.jcwhatever.nucleus.managed.messaging.ChatPaginator;
+import com.jcwhatever.nucleus.utils.text.TextUtils.FormatTemplate;
 import com.jcwhatever.rentalrooms.BillCollector;
 import com.jcwhatever.rentalrooms.Lang;
 import com.jcwhatever.rentalrooms.Msg;
@@ -31,13 +39,6 @@ import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.Tenant;
 import com.jcwhatever.rentalrooms.region.RentRegion;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
-import com.jcwhatever.nucleus.commands.AbstractCommand;
-import com.jcwhatever.nucleus.commands.CommandInfo;
-import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
-import com.jcwhatever.nucleus.commands.exceptions.InvalidArgumentException;
-import com.jcwhatever.nucleus.managed.messaging.ChatPaginator;
-import com.jcwhatever.nucleus.managed.language.Localizable;
-import com.jcwhatever.nucleus.utils.text.TextUtils.FormatTemplate;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -56,7 +57,7 @@ import java.util.Collection;
         },
         permissionDefault=PermissionDefault.TRUE)
 
-public class InfoCommand extends AbstractCommand {
+public class InfoCommand extends AbstractCommand implements IExecutableCommand {
 
     @Localizable static final String _RENTAL_NOT_FOUND = "Rental region '{0}' not found.";
     @Localizable static final String _PAGINATOR_TITLE = "Rent Info: {0}";
@@ -72,7 +73,7 @@ public class InfoCommand extends AbstractCommand {
     @Localizable static final String _NO_REGION_HERE = "No rental region here.";
 
     @Override
-    public void execute(CommandSender sender, CommandArguments args) throws InvalidArgumentException {
+    public void execute(CommandSender sender, ICommandArguments args) throws InvalidArgumentException {
 
         String rentalName = args.getString("rentalName");
         int page = args.getInteger("page");

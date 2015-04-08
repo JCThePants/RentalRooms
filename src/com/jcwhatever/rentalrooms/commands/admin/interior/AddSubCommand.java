@@ -24,10 +24,11 @@
 
 package com.jcwhatever.rentalrooms.commands.admin.interior;
 
-import com.jcwhatever.nucleus.commands.AbstractCommand;
-import com.jcwhatever.nucleus.commands.CommandInfo;
-import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
-import com.jcwhatever.nucleus.commands.exceptions.CommandException;
+import com.jcwhatever.nucleus.managed.commands.CommandInfo;
+import com.jcwhatever.nucleus.managed.commands.arguments.ICommandArguments;
+import com.jcwhatever.nucleus.managed.commands.exceptions.CommandException;
+import com.jcwhatever.nucleus.managed.commands.mixins.IExecutableCommand;
+import com.jcwhatever.nucleus.managed.commands.utils.AbstractCommand;
 import com.jcwhatever.rentalrooms.Msg;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.region.RentRegion;
@@ -41,14 +42,15 @@ import org.bukkit.entity.Player;
 		parent="interior", 
 		command="add",
 		staticParams={"rentalName"},
-		description="Searches the interior of a building starting from where you are standing to get the tenant editable interior.")
+		description="Searches the interior of a building starting from where you are standing " +
+				"to get the tenant editable interior.")
 
-public class AddSubCommand extends AbstractCommand {
+public class AddSubCommand extends AbstractCommand implements IExecutableCommand {
 	
 	@Override
-    public void execute(CommandSender sender, CommandArguments args) throws CommandException {
+    public void execute(CommandSender sender, ICommandArguments args) throws CommandException {
 
-		CommandException.checkNotConsole(this, sender);
+		CommandException.checkNotConsole(getPlugin(), this, sender);
 		
 		String rentalName = args.getName("rentalName");
 		
@@ -56,7 +58,7 @@ public class AddSubCommand extends AbstractCommand {
 		
 		Location start = p.getLocation();
 		
-		RentRegionManager regionManager = RentalRooms.getPlugin().getRegionManager();
+		RentRegionManager regionManager = RentalRooms.getRegionManager();
 		
 		RentRegion region = regionManager.get(rentalName);
 		if (region == null) {

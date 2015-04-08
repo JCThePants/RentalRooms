@@ -24,10 +24,11 @@
 
 package com.jcwhatever.rentalrooms.commands.admin.interior;
 
-import com.jcwhatever.nucleus.commands.AbstractCommand;
-import com.jcwhatever.nucleus.commands.CommandInfo;
-import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
-import com.jcwhatever.nucleus.commands.exceptions.InvalidArgumentException;
+import com.jcwhatever.nucleus.managed.commands.CommandInfo;
+import com.jcwhatever.nucleus.managed.commands.arguments.ICommandArguments;
+import com.jcwhatever.nucleus.managed.commands.exceptions.InvalidArgumentException;
+import com.jcwhatever.nucleus.managed.commands.mixins.IExecutableCommand;
+import com.jcwhatever.nucleus.managed.commands.utils.AbstractCommand;
 import com.jcwhatever.rentalrooms.Msg;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.region.RentRegion;
@@ -42,16 +43,16 @@ import org.bukkit.entity.Player;
 		staticParams={"rentalName"},
 		description="Clear stored interior locations from the specified rental region.")
 
-public class ClearSubCommand extends AbstractCommand {
+public class ClearSubCommand extends AbstractCommand implements IExecutableCommand {
 	
 	@Override
-    public void execute(CommandSender sender, CommandArguments args) throws InvalidArgumentException {
+    public void execute(CommandSender sender, ICommandArguments args) throws InvalidArgumentException {
         	    
 		String rentalName = args.getName("rentalName");
 		
 		Player p = (Player)sender;
 		
-		RentRegionManager regionManager = RentalRooms.getPlugin().getRegionManager();
+		RentRegionManager regionManager = RentalRooms.getRegionManager();
 		
 		RentRegion region = regionManager.get(rentalName);
 		if (region == null) {

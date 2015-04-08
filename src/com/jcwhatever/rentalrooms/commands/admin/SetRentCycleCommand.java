@@ -24,14 +24,15 @@
 
 package com.jcwhatever.rentalrooms.commands.admin;
 
+import com.jcwhatever.nucleus.managed.commands.CommandInfo;
+import com.jcwhatever.nucleus.managed.commands.arguments.ICommandArguments;
+import com.jcwhatever.nucleus.managed.commands.exceptions.InvalidArgumentException;
+import com.jcwhatever.nucleus.managed.commands.mixins.IExecutableCommand;
+import com.jcwhatever.nucleus.managed.commands.utils.AbstractCommand;
+import com.jcwhatever.nucleus.managed.language.Localizable;
 import com.jcwhatever.rentalrooms.BillCollector;
 import com.jcwhatever.rentalrooms.Lang;
 import com.jcwhatever.rentalrooms.RentalRooms;
-import com.jcwhatever.nucleus.commands.AbstractCommand;
-import com.jcwhatever.nucleus.commands.CommandInfo;
-import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
-import com.jcwhatever.nucleus.commands.exceptions.InvalidArgumentException;
-import com.jcwhatever.nucleus.managed.language.Localizable;
 
 import org.bukkit.command.CommandSender;
 
@@ -42,13 +43,13 @@ import org.bukkit.command.CommandSender;
         paramDescriptions = {
                 "days= The number of days that a single rent payment is for."
         })
-public class SetRentCycleCommand extends AbstractCommand {
+public class SetRentCycleCommand extends AbstractCommand implements IExecutableCommand {
 
     @Localizable static final String _SUCCESS =
             "Rent cycle changed to {0: days} real life days.";
 
     @Override
-    public void execute(CommandSender sender, CommandArguments args) throws InvalidArgumentException {
+    public void execute(CommandSender sender, ICommandArguments args) throws InvalidArgumentException {
 
         int days = args.getInteger("days", 1, 365);
 

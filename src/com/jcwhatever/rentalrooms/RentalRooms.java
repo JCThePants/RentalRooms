@@ -25,10 +25,25 @@
 package com.jcwhatever.rentalrooms;
 
 import com.jcwhatever.nucleus.NucleusPlugin;
-import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.managed.language.Localizable;
+import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.utils.SignUtils;
-import com.jcwhatever.rentalrooms.commands.RentalCommandDispatcher;
+import com.jcwhatever.rentalrooms.commands.admin.CreateCommand;
+import com.jcwhatever.rentalrooms.commands.admin.DelCommand;
+import com.jcwhatever.rentalrooms.commands.admin.EditModeCommand;
+import com.jcwhatever.rentalrooms.commands.admin.ListAllCommand;
+import com.jcwhatever.rentalrooms.commands.admin.ProtectWorldCommand;
+import com.jcwhatever.rentalrooms.commands.admin.SetMaxAdvanceCommand;
+import com.jcwhatever.rentalrooms.commands.admin.SetPriceCommand;
+import com.jcwhatever.rentalrooms.commands.admin.SetRegionCommand;
+import com.jcwhatever.rentalrooms.commands.admin.SetRentCycleCommand;
+import com.jcwhatever.rentalrooms.commands.admin.UnprotectWorldCommand;
+import com.jcwhatever.rentalrooms.commands.admin.interior.InteriorCommand;
+import com.jcwhatever.rentalrooms.commands.users.InfoCommand;
+import com.jcwhatever.rentalrooms.commands.users.ListCommand;
+import com.jcwhatever.rentalrooms.commands.users.MoveInCommand;
+import com.jcwhatever.rentalrooms.commands.users.MoveOutCommand;
+import com.jcwhatever.rentalrooms.commands.users.PayCommand;
 import com.jcwhatever.rentalrooms.events.GlobalListener;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
 
@@ -110,8 +125,24 @@ public class RentalRooms extends NucleusPlugin {
         _signHandler = new RentalSignHandler();
         SignUtils.registerHandler(_signHandler);
 
+        this.registerCommand(CreateCommand.class);
+        this.registerCommand(InteriorCommand.class);
+        this.registerCommand(InfoCommand.class);
+        this.registerCommand(MoveInCommand.class);
+        this.registerCommand(MoveOutCommand.class);
+        this.registerCommand(EditModeCommand.class);
+        this.registerCommand(ListAllCommand.class);
+        this.registerCommand(ProtectWorldCommand.class);
+        this.registerCommand(UnprotectWorldCommand.class);
+        this.registerCommand(SetPriceCommand.class);
+        this.registerCommand(SetRentCycleCommand.class);
+        this.registerCommand(ListCommand.class);
+        this.registerCommand(PayCommand.class);
+        this.registerCommand(DelCommand.class);
+        this.registerCommand(SetRegionCommand.class);
+        this.registerCommand(SetMaxAdvanceCommand.class);
+
         registerEventListeners(new GlobalListener(_regionManager));
-        registerCommands(new RentalCommandDispatcher(this));
     }
 
     @Override

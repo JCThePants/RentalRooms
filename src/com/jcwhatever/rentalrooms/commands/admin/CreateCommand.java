@@ -24,16 +24,17 @@
 
 package com.jcwhatever.rentalrooms.commands.admin;
 
+import com.jcwhatever.nucleus.managed.commands.CommandInfo;
+import com.jcwhatever.nucleus.managed.commands.arguments.ICommandArguments;
+import com.jcwhatever.nucleus.managed.commands.exceptions.CommandException;
+import com.jcwhatever.nucleus.managed.commands.mixins.IExecutableCommand;
+import com.jcwhatever.nucleus.managed.commands.utils.AbstractCommand;
+import com.jcwhatever.nucleus.managed.language.Localizable;
+import com.jcwhatever.nucleus.providers.regionselect.IRegionSelection;
 import com.jcwhatever.rentalrooms.Lang;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.region.RentRegion;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
-import com.jcwhatever.nucleus.commands.AbstractCommand;
-import com.jcwhatever.nucleus.commands.CommandInfo;
-import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
-import com.jcwhatever.nucleus.commands.exceptions.CommandException;
-import com.jcwhatever.nucleus.providers.regionselect.IRegionSelection;
-import com.jcwhatever.nucleus.managed.language.Localizable;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -46,7 +47,7 @@ import org.bukkit.entity.Player;
         paramDescriptions = {
                 "rentalName= The name of the rental region. {NAME16}"
         })
-public class CreateCommand extends AbstractCommand {
+public class CreateCommand extends AbstractCommand implements IExecutableCommand {
 
     @Localizable static final String _REGION_ALREADY_EXISTS =
             "There is already a rental region with the name '{0: rental name}'.";
@@ -58,9 +59,9 @@ public class CreateCommand extends AbstractCommand {
             "Rental region '{0: rental name}' created.";
 
     @Override
-    public void execute(CommandSender sender, CommandArguments args) throws CommandException {
+    public void execute(CommandSender sender, ICommandArguments args) throws CommandException {
 
-        CommandException.checkNotConsole(this, sender);
+        CommandException.checkNotConsole(getPlugin(), this, sender);
 
         String rentalName = args.getName("rentalName");
 

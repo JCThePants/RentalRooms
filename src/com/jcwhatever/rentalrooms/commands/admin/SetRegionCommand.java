@@ -24,16 +24,17 @@
 
 package com.jcwhatever.rentalrooms.commands.admin;
 
+import com.jcwhatever.nucleus.managed.commands.CommandInfo;
+import com.jcwhatever.nucleus.managed.commands.arguments.ICommandArguments;
+import com.jcwhatever.nucleus.managed.commands.exceptions.CommandException;
+import com.jcwhatever.nucleus.managed.commands.mixins.IExecutableCommand;
+import com.jcwhatever.nucleus.managed.commands.utils.AbstractCommand;
+import com.jcwhatever.nucleus.managed.language.Localizable;
+import com.jcwhatever.nucleus.providers.regionselect.IRegionSelection;
 import com.jcwhatever.rentalrooms.Lang;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.region.RentRegion;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
-import com.jcwhatever.nucleus.commands.AbstractCommand;
-import com.jcwhatever.nucleus.commands.CommandInfo;
-import com.jcwhatever.nucleus.commands.arguments.CommandArguments;
-import com.jcwhatever.nucleus.commands.exceptions.CommandException;
-import com.jcwhatever.nucleus.providers.regionselect.IRegionSelection;
-import com.jcwhatever.nucleus.managed.language.Localizable;
 
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -47,7 +48,7 @@ import org.bukkit.entity.Player;
         paramDescriptions = {
                 "rentalName= The name of the rental. {NAME16}"
         })
-public class SetRegionCommand extends AbstractCommand {
+public class SetRegionCommand extends AbstractCommand implements IExecutableCommand {
 
     @Localizable static final String _RENTAL_NOT_FOUND =
             "A rental with the name '{0: rental name}' was not found.";
@@ -56,9 +57,9 @@ public class SetRegionCommand extends AbstractCommand {
             "Rental region '{0: rental name}' set. Interior cleared.";
 
     @Override
-    public void execute(CommandSender sender, CommandArguments args) throws CommandException {
+    public void execute(CommandSender sender, ICommandArguments args) throws CommandException {
 
-        CommandException.checkNotConsole(this, sender);
+        CommandException.checkNotConsole(getPlugin(), this, sender);
 
         String rentalName = args.getName("rentalName");
 
