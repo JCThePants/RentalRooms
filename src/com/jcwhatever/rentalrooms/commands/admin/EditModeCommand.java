@@ -67,10 +67,8 @@ public class EditModeCommand extends AbstractCommand implements IExecutableComma
         RentRegionManager regionManager = RentalRooms.getRegionManager();
 
         RentRegion region = regionManager.get(rentalName);
-        if (region == null) {
-            tellError(sender, Lang.get(_REGION_NOT_FOUND, rentalName));
-            return; // finish
-        }
+        if (region == null)
+            throw new CommandException(Lang.get(_REGION_NOT_FOUND, rentalName));
 
         region.setIsEditModeOn(isEdit);
 

@@ -64,15 +64,11 @@ public class DelCommand extends AbstractCommand implements IExecutableCommand {
         RentRegionManager regionManager = RentalRooms.getRegionManager();
 
         RentRegion region = regionManager.get(rentalName);
-        if (region == null) {
-            tellError(sender, Lang.get(_REGION_NOT_FOUND, rentalName));
-            return; // finish
-        }
+        if (region == null)
+            throw new CommandException(Lang.get(_REGION_NOT_FOUND, rentalName));
 
-        if (!regionManager.remove(rentalName)) {
-            tellError(sender, Lang.get(_FAILED));
-            return; // finish
-        }
+        if (!regionManager.remove(rentalName))
+            throw new CommandException(Lang.get(_FAILED));
 
         tellSuccess(sender, Lang.get(_SUCCESS, rentalName));
     }

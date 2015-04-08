@@ -81,32 +81,22 @@ public class PayCommand extends AbstractCommand implements IExecutableCommand {
         RentRegionManager regionManager = RentalRooms.getRegionManager();
 
         RentRegion region = regionManager.get(rentalName);
-        if (region == null) {
-            tellError(p, Lang.get(_REGION_NOT_FOUND, rentalName));
-            return; // finish
-        }
+        if (region == null)
+            throw new CommandException(Lang.get(_REGION_NOT_FOUND, rentalName));
 
-        if (!region.hasTenant() || !region.getTenant().getPlayerID().equals(p.getUniqueId())) {
-            tellError(p, Lang.get(_NOT_TENANT, region.getName()));
-            return; // finish
-        }
+        if (!region.hasTenant() || !region.getTenant().getPlayerID().equals(p.getUniqueId()))
+            throw new CommandException(Lang.get(_NOT_TENANT, region.getName()));
 
         BillCollector collector = RentalRooms.getBillCollector();
 
-        if (!collector.canPay(region, p)) {
-            tellError(p, Lang.get(_CANNOT_AFFORD, collector.formatRentPrice(region)));
-            return; // finish
-        }
+        if (!collector.canPay(region, p))
+            throw new CommandException(Lang.get(_CANNOT_AFFORD, collector.formatRentPrice(region)));
 
-        if (!collector.canPayAdvance(region)) {
-            tellError(p, Lang.get(_CANNOT_PAY_ADVANCE, collector.getMaxAdvancedDays()));
-            return; // finish
-        }
+        if (!collector.canPayAdvance(region))
+            throw new CommandException(Lang.get(_CANNOT_PAY_ADVANCE, collector.getMaxAdvancedDays()));
 
-        if (!collector.charge(region, p)) {
-            tellError(p, Lang.get(_PAY_FAILED, region.getName()));
-            return; // finish
-        }
+        if (!collector.charge(region, p))
+            throw new CommandException(Lang.get(_PAY_FAILED, region.getName()));
 
         String amountPayed = collector.formatRentPrice(region);
         String nextDueDate = region.getFormattedExpiration();

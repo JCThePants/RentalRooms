@@ -76,24 +76,21 @@ public class MoveOutCommand extends AbstractCommand implements IExecutableComman
 
         RentRegion region;
         if (args.isDefaultValue("rentalName")) {
+
             region = regionManager.get(p.getLocation());
-            if (region == null) {
-                tellError(p, Lang.get(_NOT_STANDING_IN_RENTAL));
-                return; // finish
-            }
+            if (region == null)
+                throw new CommandException(Lang.get(_NOT_STANDING_IN_RENTAL));
+
         } else {
+
             String rentalName = args.getString("rentalName");
             region = regionManager.get(rentalName);
-            if (region == null) {
-                tellError(p, Lang.get(_REGION_NOT_FOUND, rentalName));
-                return; // finish
-            }
+            if (region == null)
+                throw new CommandException(Lang.get(_REGION_NOT_FOUND, rentalName));
         }
 
-        if (!region.hasTenant() || !region.getTenant().equals(p)) {
-            tellError(p, Lang.get(_NOT_TENANT));
-            return; // finish
-        }
+        if (!region.hasTenant() || !region.getTenant().equals(p))
+            throw new CommandException(Lang.get(_NOT_TENANT));
 
         region.evict();
 

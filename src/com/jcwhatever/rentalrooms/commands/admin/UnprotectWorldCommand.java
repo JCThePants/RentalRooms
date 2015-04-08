@@ -77,18 +77,15 @@ public class UnprotectWorldCommand extends AbstractCommand implements IExecutabl
             World world = Bukkit.getWorld(worldName);
 
             if (world == null) {
-                tellError(sender, Lang.get(_WORLD_NOT_FOUND, worldName));
-                return; // finish
+                throw new CommandException(Lang.get(_WORLD_NOT_FOUND, worldName));
             }
             else {
                 isRemoved = regionManager.removeProtectedWorld(world.getName());
             }
         }
 
-        if (!isRemoved) {
-            tellError(sender, Lang.get(_FAILED, worldName));
-            return; // finish
-        }
+        if (!isRemoved)
+            throw new CommandException(Lang.get(_FAILED, worldName));
 
         tellSuccess(sender, Lang.get(_SUCCESS, worldName));
     }

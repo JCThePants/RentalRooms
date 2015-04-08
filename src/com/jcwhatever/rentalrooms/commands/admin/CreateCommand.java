@@ -68,23 +68,17 @@ public class CreateCommand extends AbstractCommand implements IExecutableCommand
         Player p = (Player)sender;
 
         IRegionSelection selection = getRegionSelection(p);
-        if (selection == null)
-            return; // finish
 
         RentRegionManager regionManager = RentalRooms.getRegionManager();
 
         RentRegion region = regionManager.get(rentalName);
-        if (region != null) {
-            tellError(p, Lang.get(_REGION_ALREADY_EXISTS, rentalName));
-            return; // finish
-        }
+        if (region != null)
+            throw new CommandException(Lang.get(_REGION_ALREADY_EXISTS, rentalName));
 
         region = regionManager.add(rentalName, selection);
 
-        if (region == null) {
-            tellError(p, Lang.get(_FAILED));
-            return; // finish
-        }
+        if (region == null)
+            throw new CommandException(Lang.get(_FAILED));
 
         tellSuccess(p, Lang.get(_SUCCESS, rentalName));
     }

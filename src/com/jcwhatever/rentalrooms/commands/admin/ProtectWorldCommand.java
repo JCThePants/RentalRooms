@@ -75,15 +75,11 @@ public class ProtectWorldCommand extends AbstractCommand implements IExecutableC
         RentRegionManager regionManager = RentalRooms.getRegionManager();
         World world = Bukkit.getWorld(worldName);
 
-        if (world == null) {
-            tellError(sender, Lang.get(_WORLD_NOT_FOUND, worldName));
-            return; // finish
-        }
+        if (world == null)
+            throw new CommandException(Lang.get(_WORLD_NOT_FOUND, worldName));
 
-        if (!regionManager.addProtectedWorld(world)) {
-            tellError(sender, Lang.get(_FAILED, world.getName()));
-            return; // finish
-        }
+        if (!regionManager.addProtectedWorld(world))
+            throw new CommandException(Lang.get(_FAILED, world.getName()));
 
         tellSuccess(sender, Lang.get(_SUCCESS, world.getName()));
     }

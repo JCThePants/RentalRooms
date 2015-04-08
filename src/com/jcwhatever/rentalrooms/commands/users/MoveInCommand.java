@@ -40,8 +40,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 
-import java.util.UUID;
-
 @CommandInfo(
         command="movein",
         description="Move in to the rental unit you're standing in.",
@@ -79,37 +77,26 @@ public class MoveInCommand extends AbstractCommand implements IExecutableCommand
         RentRegionManager regionManager = RentalRooms.getRegionManager();
 
         RentRegion region = regionManager.get(p.getLocation());
-        if (region == null) {
-            tellError(p, Lang.get(_NOT_STANDING_IN_RENTAL));
-            return; // finish
-        }
+        if (region == null)
+            throw new CommandException(Lang.get(_NOT_STANDING_IN_RENTAL));
 
         if (region.hasTenant()) {
 
-            if (region.getTenant().equals(p)) {
-                tellError(p, Lang.get(_ALREADY_RENTING));
-                return; // finish
-            }
+            if (region.getTenant().equals(p))
+                throw new CommandException(Lang.get(_ALREADY_RENTING));
 
-            tellError(p, Lang.get(_ALREADY_RENTED));
-            return; // finish
+            throw new CommandException(Lang.get(_ALREADY_RENTED));
         }
 
         BillCollector collector = RentalRooms.getBillCollector();
 
-        if (!collector.canPay(region, p)) {
-            tellError(p, Lang.get(_CANNOT_AFFORD));
-            return; // finish
-        }
+        if (!collector.canPay(region, p))
+            throw new CommandException(Lang.get(_CANNOT_AFFORD));
 
+        if (!collector.charge(region, p))
+            throw new CommandException(Lang.get(_PAY_FAILED, region.getName()));
 
         region.setTenant(p);
-
-        if (!collector.charge(region, p)) {
-            region.setTenant((UUID)null);
-            tellError(p, Lang.get(_PAY_FAILED, region.getName()));
-            return; // finish
-        }
 
         tellSuccess(p, Lang.get(_SUCCESS,
                 collector.formatRentPrice(region),

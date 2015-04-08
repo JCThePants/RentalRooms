@@ -66,8 +66,6 @@ public class SetRegionCommand extends AbstractCommand implements IExecutableComm
         Player p = (Player)sender;
 
         IRegionSelection selection = getRegionSelection(p);
-        if (selection == null)
-            return; // finish
 
         Location p1 = selection.getP1();
         Location p2 = selection.getP2();
@@ -75,16 +73,12 @@ public class SetRegionCommand extends AbstractCommand implements IExecutableComm
         RentRegionManager regionManager = RentalRooms.getRegionManager();
 
         RentRegion region = regionManager.get(rentalName);
-        if (region == null) {
-            tellError(p, Lang.get(_RENTAL_NOT_FOUND, rentalName));
-            return; // finish
-        }
+        if (region == null)
+            throw new CommandException(Lang.get(_RENTAL_NOT_FOUND, rentalName));
 
         region.setCoords(p1, p2);
         region.clearInterior();
 
         tellSuccess(p, Lang.get(_SUCCESS, rentalName));
     }
-
-
 }
