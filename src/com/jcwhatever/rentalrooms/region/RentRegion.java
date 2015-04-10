@@ -37,8 +37,8 @@ import com.jcwhatever.nucleus.utils.coords.LocationUtils;
 import com.jcwhatever.nucleus.utils.MetaKey;
 import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.nucleus.managed.scheduler.Scheduler;
-import com.jcwhatever.nucleus.utils.file.NucleusByteReader;
-import com.jcwhatever.nucleus.utils.file.NucleusByteWriter;
+import com.jcwhatever.nucleus.utils.file.BasicByteReader;
+import com.jcwhatever.nucleus.utils.file.BasicByteWriter;
 import com.jcwhatever.nucleus.utils.astar.InteriorFinder;
 import com.jcwhatever.nucleus.utils.astar.InteriorFinder.InteriorResults;
 import com.jcwhatever.rentalrooms.BillCollector;
@@ -444,14 +444,14 @@ public class RentRegion extends RestorableRegion {
         final RentRegion region;
         final File file;
         List<Location> interior;
-        NucleusByteReader reader;
+        BasicByteReader reader;
 
         LoadInterior(RentRegion region, File file) {
             this.region = region;
             this.file = file;
 
             try {
-                this.reader = new NucleusByteReader(new FileInputStream(file));
+                this.reader = new BasicByteReader(new FileInputStream(file));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -540,7 +540,7 @@ public class RentRegion extends RestorableRegion {
         @Override
         public void run() {
 
-            NucleusByteWriter writer = null;
+            BasicByteWriter writer = null;
 
             try {
 
@@ -550,8 +550,8 @@ public class RentRegion extends RestorableRegion {
                 if (!file.createNewFile())
                     throw new IOException("Failed to create new interior file.");
 
-                synchronized (NucleusByteWriter.class) {
-                    writer = new NucleusByteWriter(new FileOutputStream(file));
+                synchronized (BasicByteWriter.class) {
+                    writer = new BasicByteWriter(new FileOutputStream(file));
                 }
 
                 assert region.getWorld() != null;
