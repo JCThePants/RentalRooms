@@ -26,8 +26,10 @@ package com.jcwhatever.rentalrooms.region;
 
 import com.jcwhatever.nucleus.providers.friends.FriendLevels;
 import com.jcwhatever.nucleus.providers.friends.IFriend;
-import com.jcwhatever.nucleus.regions.BuildMethod;
 import com.jcwhatever.nucleus.regions.RestorableRegion;
+import com.jcwhatever.nucleus.regions.file.IRegionFileFactory;
+import com.jcwhatever.nucleus.regions.file.IRegionFileLoader.LoadSpeed;
+import com.jcwhatever.nucleus.regions.file.basic.BasicFileFactory;
 import com.jcwhatever.nucleus.storage.IDataNode;
 import com.jcwhatever.nucleus.utils.DateUtils;
 import com.jcwhatever.nucleus.providers.friends.Friends;
@@ -81,6 +83,7 @@ public class RentRegion extends RestorableRegion {
     private Date _rentExpiration = null;
 
     private final IDataNode _dataNode;
+    private final BasicFileFactory _fileFactory = new BasicFileFactory("rent");
 
     /**
      * Constructor.
@@ -310,8 +313,8 @@ public class RentRegion extends RestorableRegion {
     }
 
     @Override
-    protected String getFilePrefix() {
-        return "rent." + getName();
+    public IRegionFileFactory getFileFactory() {
+        return _fileFactory;
     }
 
     @Override
@@ -372,7 +375,7 @@ public class RentRegion extends RestorableRegion {
 
         if (this.canRestore()) {
             try {
-                this.restoreData(BuildMethod.PERFORMANCE);
+                this.restoreData(LoadSpeed.PERFORMANCE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -390,11 +393,11 @@ public class RentRegion extends RestorableRegion {
     // get the regions interior cache file.
     private File getInteriorFile(boolean deleteIfExists) throws IOException {
 
-        File interiorDir = new File(getDataFolder(), "interiors");
+        File interiorDir = new File(_fileFactory.getDirectory(this), "interiors");
         if (!interiorDir.exists() && !interiorDir.mkdir())
             throw new IOException("Failed to create interior file folder.");
 
-        File file = new File(interiorDir, getFilePrefix() + ".bin");
+        File file = new File(interiorDir, "rent." + getName() + ".bin");
         if (deleteIfExists && file.exists() && !file.delete())
             throw new IOException("Failed to delete interior file.");
 
