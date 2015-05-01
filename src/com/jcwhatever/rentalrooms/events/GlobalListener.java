@@ -68,7 +68,7 @@ public class GlobalListener implements Listener {
     /**
      * Prevent strangers from placing blocks inside a rent region.
      */
-    @EventHandler(priority=EventPriority.NORMAL)
+    @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled = true)
     private void onBlockPlace(BlockPlaceEvent event) {
         Location location = event.getBlockPlaced().getLocation();
 
@@ -84,7 +84,7 @@ public class GlobalListener implements Listener {
     /**
      * Prevent strangers from damaging blocks inside a rent region.
      */
-    @EventHandler(priority=EventPriority.NORMAL)
+    @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled = true)
     private void onBlockDamage(BlockDamageEvent event) {
 
         if (event.getPlayer() == null)
@@ -99,13 +99,12 @@ public class GlobalListener implements Listener {
         if (!region.canInteract(event.getPlayer(), location)) {
             event.setCancelled(true);
         }
-
     }
 
     /**
      * Prevent strangers from breaking blocks inside a rent region.
      */
-    @EventHandler(priority=EventPriority.NORMAL)
+    @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled = true)
     private void onBlockBreak(BlockBreakEvent event) {
 
         if (event.getPlayer() == null)
@@ -125,7 +124,7 @@ public class GlobalListener implements Listener {
     /**
      * Prevent strangers from igniting blocks inside a rent region.
      */
-    @EventHandler(priority=EventPriority.NORMAL)
+    @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled = true)
     private void onBlockIgnite(BlockIgniteEvent event) {
         if (event.getPlayer() == null)
             return;
@@ -144,7 +143,7 @@ public class GlobalListener implements Listener {
     /**
      * Prevent strangers from performing certain interactions inside a rent region.
      */
-    @EventHandler(priority=EventPriority.NORMAL)
+    @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled = true)
     private void onPlayerInteract(PlayerInteractEvent event) {
 
         if (!event.hasBlock())

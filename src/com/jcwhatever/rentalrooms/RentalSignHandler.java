@@ -45,6 +45,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 import java.util.Date;
@@ -298,22 +299,22 @@ public class RentalSignHandler extends SignHandler {
      */
     private class EventListener implements Listener {
 
-        @EventHandler
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         private void onRentMoveIn(RentMoveInEvent event) {
             updateSignOwners(event.getRentRegion());
         }
 
-        @EventHandler
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         private void onRentMoveOut(RentMoveOutEvent event) {
             updateSignOwners(event.getRentRegion());
         }
 
-        @EventHandler
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         private void onPriceChanged(RentPriceChangedEvent event) {
             updateSignPrices(event.getNewPrice());
         }
 
-        @EventHandler
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         private void onRentPayed(RentPayedEvent event) {
             updateTimeLeft(event.getRentRegion());
         }
