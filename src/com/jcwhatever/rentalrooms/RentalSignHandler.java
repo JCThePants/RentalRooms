@@ -25,14 +25,14 @@
 package com.jcwhatever.rentalrooms;
 
 import com.jcwhatever.nucleus.Nucleus;
-import com.jcwhatever.nucleus.utils.DateUtils;
-import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
-import com.jcwhatever.nucleus.providers.economy.Economy;
-import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.nucleus.managed.language.Localizable;
-import com.jcwhatever.nucleus.utils.player.PlayerUtils;
 import com.jcwhatever.nucleus.managed.signs.ISignContainer;
 import com.jcwhatever.nucleus.managed.signs.SignHandler;
+import com.jcwhatever.nucleus.providers.economy.Economy;
+import com.jcwhatever.nucleus.utils.DateUtils;
+import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
+import com.jcwhatever.nucleus.utils.PreCon;
+import com.jcwhatever.nucleus.utils.player.PlayerUtils;
 import com.jcwhatever.rentalrooms.events.RentMoveInEvent;
 import com.jcwhatever.rentalrooms.events.RentMoveOutEvent;
 import com.jcwhatever.rentalrooms.events.RentPayedEvent;
@@ -48,8 +48,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Rental sign handler.
@@ -86,7 +87,8 @@ public class RentalSignHandler extends SignHandler {
     @Localizable static final String _SIGN_FOR_RENT =
             "{GREEN}For Rent";
 
-    private RentRegionManager _regionManager;
+    private final RentRegionManager _regionManager;
+    private final Collection<ISignContainer> _signContainerOutput = new ArrayList<>(10);
 
     /**
      * Constructor.
@@ -199,7 +201,8 @@ public class RentalSignHandler extends SignHandler {
         long hoursLeft = DateUtils.getDeltaHours(new Date(), expires, TimeRound.ROUND_DOWN);
         long daysLeft = hoursLeft / 24;
 
-        List<ISignContainer> signs = Nucleus.getSignManager().getSigns(getName());
+        _signContainerOutput.clear();
+        Collection<ISignContainer> signs = Nucleus.getSignManager().getSigns(getName(), _signContainerOutput);
 
         for (ISignContainer sign : signs) {
             if (isRegionSign(region, sign.getSign())) {
@@ -213,9 +216,10 @@ public class RentalSignHandler extends SignHandler {
                             : Lang.get(_SIGN_DAYS_LEFT, daysLeft, hoursLeft % 24));
                 }
                 sign.update();
-
             }
         }
+
+        _signContainerOutput.clear();
     }
 
     // determine if a sign is assigned to the specified region.
@@ -227,7 +231,8 @@ public class RentalSignHandler extends SignHandler {
     // update the region owner indicated on all signs for the specified region.
     private void updateSignOwners(RentRegion region) {
 
-        List<ISignContainer> signs = Nucleus.getSignManager().getSigns(getName());
+        _signContainerOutput.clear();
+        Collection<ISignContainer> signs = Nucleus.getSignManager().getSigns(getName(), _signContainerOutput);
 
         for (ISignContainer sign : signs) {
             if (region == null || isRegionSign(region, sign.getSign())) {
@@ -244,12 +249,15 @@ public class RentalSignHandler extends SignHandler {
                 sign.update();
             }
         }
+
+        _signContainerOutput.clear();
     }
 
     // update price indicated on all rent region signs
     private void updateSignPrices(double newAmount) {
 
-        List<ISignContainer> signs = Nucleus.getSignManager().getSigns(getName());
+        _signContainerOutput.clear();
+        Collection<ISignContainer> signs = Nucleus.getSignManager().getSigns(getName(), _signContainerOutput);
 
         for (ISignContainer sign : signs) {
 
@@ -267,6 +275,8 @@ public class RentalSignHandler extends SignHandler {
             sign.setLine(3, formatted);
             sign.update();
         }
+
+        _signContainerOutput.clear();
     }
 
     // update the info on a sign to reflect the info on the specified rent region.
