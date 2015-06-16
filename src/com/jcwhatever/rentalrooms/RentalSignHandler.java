@@ -309,22 +309,22 @@ public class RentalSignHandler extends SignHandler {
      */
     private class EventListener implements Listener {
 
-        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
         private void onRentMoveIn(RentMoveInEvent event) {
             updateSignOwners(event.getRentRegion());
         }
 
-        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
         private void onRentMoveOut(RentMoveOutEvent event) {
             updateSignOwners(event.getRentRegion());
         }
 
-        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
         private void onPriceChanged(RentPriceChangedEvent event) {
             updateSignPrices(event.getNewPrice());
         }
 
-        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
         private void onRentPayed(RentPayedEvent event) {
             updateTimeLeft(event.getRentRegion());
         }
