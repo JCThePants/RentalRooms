@@ -76,7 +76,9 @@ public class GlobalListener implements Listener {
         if (region == null)
             return;
 
-        if (!region.canInteract(event.getPlayer(), location)) {
+        if (region.canInteract(event.getPlayer(), location)) {
+            event.setCancelled(false);
+        } else {
             event.setCancelled(true);
         }
     }
@@ -96,7 +98,9 @@ public class GlobalListener implements Listener {
         if (region == null)
             return;
 
-        if (!region.canInteract(event.getPlayer(), location)) {
+        if (region.canInteract(event.getPlayer(), location)) {
+            event.setCancelled(false);
+        } else {
             event.setCancelled(true);
         }
     }
@@ -116,7 +120,9 @@ public class GlobalListener implements Listener {
         if (region == null)
             return;
 
-        if (!region.canInteract(event.getPlayer(), location)) {
+        if (region.canInteract(event.getPlayer(), location)) {
+            event.setCancelled(false);
+        } else {
             event.setCancelled(true);
         }
     }
@@ -135,7 +141,9 @@ public class GlobalListener implements Listener {
         if (region == null)
             return;
 
-        if (!region.canInteract(event.getPlayer(), location)) {
+        if (region.canInteract(event.getPlayer(), location)) {
+            event.setCancelled(false);
+        } else {
             event.setCancelled(true);
         }
     }
@@ -173,6 +181,10 @@ public class GlobalListener implements Listener {
                 event.setUseInteractedBlock(Result.DENY);
                 //event.setUseItemInHand(Result.DENY);
             }
+            else {
+                event.setCancelled(false);
+                event.setUseInteractedBlock(Result.ALLOW);
+            }
             return;
         }
 
@@ -183,12 +195,16 @@ public class GlobalListener implements Listener {
             event.setCancelled(true);
             event.setUseInteractedBlock(Result.DENY);
         }
+        else {
+            event.setCancelled(false);
+            event.setUseInteractedBlock(Result.ALLOW);
+        }
     }
 
     /**
      * Notify rent owners of price changes.
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
     private void onPriceChanged(RentPriceChangedEvent event) {
 
         double oldAmount = event.getOldPrice();
