@@ -133,7 +133,10 @@ public class RentRegion extends RestorableRegion {
      * Get the formatted date the rent expires.
      */
     public String getFormattedExpiration() {
-        return RentalRooms.formatDate(getExpirationDate());
+
+        assert _rentExpiration != null;
+
+        return RentalRooms.formatDate(_rentExpiration);
     }
 
     /**

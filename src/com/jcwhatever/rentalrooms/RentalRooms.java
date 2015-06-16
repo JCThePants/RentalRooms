@@ -27,6 +27,7 @@ package com.jcwhatever.rentalrooms;
 import com.jcwhatever.nucleus.NucleusPlugin;
 import com.jcwhatever.nucleus.managed.language.Localizable;
 import com.jcwhatever.nucleus.utils.DateUtils;
+import com.jcwhatever.nucleus.utils.PreCon;
 import com.jcwhatever.nucleus.utils.SignUtils;
 import com.jcwhatever.rentalrooms.commands.admin.CreateCommand;
 import com.jcwhatever.rentalrooms.commands.admin.DelCommand;
@@ -75,6 +76,8 @@ public class RentalRooms extends NucleusPlugin {
      * Get the date format string to use.
      */
     public static String formatDate(Date date) {
+        PreCon.notNull(date);
+
         return DateUtils.format(date, Lang.get(_DATE_FORMAT));
     }
 
