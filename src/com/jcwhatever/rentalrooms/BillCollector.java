@@ -158,7 +158,7 @@ public class BillCollector {
     public double getRentCost(RentRegion region) {
         PreCon.notNull(region);
 
-        return region.getInteriorVolume() * _costPerVolume;
+        return (double)region.getInteriorVolume() * _costPerVolume;
     }
 
     /**
@@ -172,7 +172,7 @@ public class BillCollector {
 
         double rentAmount = getRentCost(region);
 
-        if (rentAmount == 0)
+        if (Double.compare(rentAmount, 0.0D) == 0)
             return true;
 
         double playerBalance = Economy.getBalance(player.getUniqueId());
@@ -213,7 +213,7 @@ public class BillCollector {
 
         double rentAmount = getRentCost(region);
 
-        if (rentAmount == 0)
+        if (Double.compare(rentAmount, 0.0D) == 0)
             return true;
 
         if (!canPay(region, player))
