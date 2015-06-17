@@ -113,19 +113,14 @@ public class RentalRooms extends NucleusPlugin {
     }
 
     @Override
-    protected void onInit() {
-        _instance = this;
-    }
-
-    @Override
     protected void onEnablePlugin() {
 
         _instance = this;
 
         _regionManager = new RentRegionManager(getDataNode().getNode("regions"));
+        _signHandler = new RentalSignHandler();
         _billCollector = new BillCollector(this.getDataNode().getNode("econ"));
 
-        _signHandler = new RentalSignHandler();
         SignUtils.registerHandler(_signHandler);
 
         this.registerCommand(CreateCommand.class);
@@ -150,8 +145,8 @@ public class RentalRooms extends NucleusPlugin {
 
     @Override
     protected void onDisablePlugin() {
-        _instance = null;
 
         SignUtils.unregisterHandler(_signHandler);
+        _instance = null;
     }
 }
