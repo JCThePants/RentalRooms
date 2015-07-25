@@ -24,6 +24,7 @@
 
 package com.jcwhatever.rentalrooms.events;
 
+import com.jcwhatever.nucleus.events.block.PlayerTransformBlockEvent;
 import com.jcwhatever.nucleus.managed.language.Localizable;
 import com.jcwhatever.nucleus.utils.materials.Materials;
 import com.jcwhatever.rentalrooms.Lang;
@@ -59,7 +60,10 @@ public class GlobalListener implements Listener {
     @Localizable static final String _RENT_DECREASED =
             "Rent has decreased from {0: previous amount} to {1: new amount} per cubic volume.";
 
+    private static final Location LOCATION = new Location(null, 0, 0, 0);
+
     private RentRegionManager _manager;
+
 
     public GlobalListener(RentRegionManager manager) {
         _manager = manager;
@@ -70,7 +74,25 @@ public class GlobalListener implements Listener {
      */
     @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled = true)
     private void onBlockPlace(BlockPlaceEvent event) {
-        Location location = event.getBlockPlaced().getLocation();
+        Location location = event.getBlockPlaced().getLocation(LOCATION);
+
+        RentRegion region = _manager.get(location);
+        if (region == null)
+            return;
+
+        if (region.canInteract(event.getPlayer(), location)) {
+            event.setCancelled(false);
+        } else {
+            event.setCancelled(true);
+        }
+    }
+
+    /**
+     * Prevent strangers from transforming blocks inside a rent region.
+     */
+    @EventHandler(priority=EventPriority.NORMAL, ignoreCancelled = true)
+    private void onTransformBlock(PlayerTransformBlockEvent event) {
+        Location location = event.getBlock().getLocation(LOCATION);
 
         RentRegion region = _manager.get(location);
         if (region == null)
@@ -92,7 +114,7 @@ public class GlobalListener implements Listener {
         if (event.getPlayer() == null)
             return;
 
-        Location location = event.getBlock().getLocation();
+        Location location = event.getBlock().getLocation(LOCATION);
 
         RentRegion region = _manager.get(location);
         if (region == null)
@@ -114,7 +136,7 @@ public class GlobalListener implements Listener {
         if (event.getPlayer() == null)
             return;
 
-        Location location = event.getBlock().getLocation();
+        Location location = event.getBlock().getLocation(LOCATION);
 
         RentRegion region = _manager.get(location);
         if (region == null)
@@ -135,7 +157,7 @@ public class GlobalListener implements Listener {
         if (event.getPlayer() == null)
             return;
 
-        Location location = event.getBlock().getLocation();
+        Location location = event.getBlock().getLocation(LOCATION);
 
         RentRegion region = _manager.get(location);
         if (region == null)
@@ -157,7 +179,7 @@ public class GlobalListener implements Listener {
         if (!event.hasBlock())
             return;
 
-        Location location = event.getClickedBlock().getLocation();
+        Location location = event.getClickedBlock().getLocation(LOCATION);
 
         // Goal: Allow opening and closing doors and chests in non-rented regions
 
