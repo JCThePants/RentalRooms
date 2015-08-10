@@ -102,7 +102,7 @@ public class RentRegion extends RestorableRegion {
         load();
         loadInterior();
 
-        getMeta().set(REGION_META_KEY, this);
+        getMeta().setKey(REGION_META_KEY, this);
     }
 
     /**
