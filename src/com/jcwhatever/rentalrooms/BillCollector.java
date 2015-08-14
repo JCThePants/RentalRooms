@@ -24,23 +24,24 @@
 
 package com.jcwhatever.rentalrooms;
 
+import com.jcwhatever.nucleus.managed.language.Localizable;
+import com.jcwhatever.nucleus.managed.scheduler.Scheduler;
+import com.jcwhatever.nucleus.providers.economy.Economy;
+import com.jcwhatever.nucleus.storage.IDataNode;
+import com.jcwhatever.nucleus.utils.DateUtils;
+import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
+import com.jcwhatever.nucleus.utils.PreCon;
+import com.jcwhatever.nucleus.utils.Rand;
 import com.jcwhatever.rentalrooms.events.RentPayedEvent;
 import com.jcwhatever.rentalrooms.events.RentPriceChangedEvent;
 import com.jcwhatever.rentalrooms.region.RentRegion;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
-import com.jcwhatever.nucleus.storage.IDataNode;
-import com.jcwhatever.nucleus.utils.DateUtils;
-import com.jcwhatever.nucleus.utils.DateUtils.TimeRound;
-import com.jcwhatever.nucleus.providers.economy.Economy;
-import com.jcwhatever.nucleus.utils.PreCon;
-import com.jcwhatever.nucleus.utils.Rand;
-import com.jcwhatever.nucleus.managed.scheduler.Scheduler;
-import com.jcwhatever.nucleus.managed.language.Localizable;
-
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Responsible for tracking and collecting rent from tenants.
@@ -272,6 +273,9 @@ public class BillCollector {
 
             Collection<RentRegion> regions = manager.getAll();
 
+            final List<RentRegion> signUpdates = new ArrayList<>(regions.size());
+            final List<RentRegion> evictions = new ArrayList<>(regions.size());
+
             for (RentRegion region : regions) {
                 if (!region.hasTenant())
                     continue;
@@ -285,9 +289,10 @@ public class BillCollector {
                 // Check for eviction
                 if (now.compareTo(expires) >= 0) { // overdue, evict
 
-                    region.evict();
+                    evictions.add(region);
 
-                    Msg.tellImportant(tenant.getPlayerID(), "rent_status_" + region.getName(), "You've been evicted from rent region '{0}'.", region.getName());
+                    Msg.tellImportant(tenant.getPlayerID(), "rent_status_" + region.getName(),
+                            "You've been evicted from rent region '{0}'.", region.getName());
 
                     continue;
                 }
@@ -314,8 +319,24 @@ public class BillCollector {
                     }
                 }
 
-                signHandler.updateTimeLeft(region);
+                signUpdates.add(region);
             }
+
+            if (signUpdates.isEmpty() && evictions.isEmpty())
+                return;
+
+            Scheduler.runTaskSync(RentalRooms.getPlugin(), new Runnable() {
+                @Override
+                public void run() {
+                    for (RentRegion region : signUpdates) {
+                        signHandler.updateTimeLeft(region);
+                    }
+
+                    for (RentRegion region : evictions) {
+                        region.evict();
+                    }
+                }
+            });
         }
     }
 }
