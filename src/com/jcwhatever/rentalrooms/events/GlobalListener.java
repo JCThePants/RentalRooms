@@ -241,8 +241,8 @@ public class GlobalListener implements Listener {
         Set<Player> notified = new HashSet<Player>(regions.size());
 
         String message = oldAmount > newAmount
-                ? Lang.get(_RENT_DECREASED, oldAmount, newAmount)
-                : Lang.get(_RENT_INCREASED, oldAmount, newAmount);
+                ? Lang.get(_RENT_DECREASED, oldAmount, newAmount).toString()
+                : Lang.get(_RENT_INCREASED, oldAmount, newAmount).toString();
 
         for (RentRegion region : regions) {
             if (!region.hasTenant())

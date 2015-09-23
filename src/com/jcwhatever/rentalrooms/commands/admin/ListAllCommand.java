@@ -33,11 +33,9 @@ import com.jcwhatever.nucleus.managed.language.Localizable;
 import com.jcwhatever.nucleus.managed.messaging.ChatPaginator;
 import com.jcwhatever.nucleus.utils.text.TextUtils.FormatTemplate;
 import com.jcwhatever.rentalrooms.Lang;
-import com.jcwhatever.rentalrooms.Msg;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.region.RentRegion;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
-
 import org.bukkit.command.CommandSender;
 
 import java.util.Collection;
@@ -65,9 +63,9 @@ public class ListAllCommand extends AbstractCommand implements IExecutableComman
 
         Collection<RentRegion> regions = regionManager.getAll();
 
-        ChatPaginator pagin = Msg.getPaginator(Lang.get(_PAGINATOR_TITLE));
+        ChatPaginator pagin = createPagin(args, 7, Lang.get(_PAGINATOR_TITLE));
 
-        String noTenantLabel = Lang.get(_LABEL_NO_TENANT);
+        String noTenantLabel = Lang.get(_LABEL_NO_TENANT).toString();
         for (RentRegion region : regions) {
             pagin.add(region.getName(), region.hasTenant()
                     ? region.getTenant().getPlayerName()

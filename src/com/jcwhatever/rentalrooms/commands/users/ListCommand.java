@@ -34,11 +34,9 @@ import com.jcwhatever.nucleus.managed.messaging.ChatPaginator;
 import com.jcwhatever.nucleus.utils.text.TextUtils.FormatTemplate;
 import com.jcwhatever.rentalrooms.BillCollector;
 import com.jcwhatever.rentalrooms.Lang;
-import com.jcwhatever.rentalrooms.Msg;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.Tenant;
 import com.jcwhatever.rentalrooms.region.RentRegion;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
@@ -79,7 +77,7 @@ public class ListCommand extends AbstractCommand implements IExecutableCommand {
         BillCollector collector = RentalRooms.getBillCollector();
         Tenant tenant = Tenant.get(p);
 
-        ChatPaginator pagin = Msg.getPaginator(Lang.get(_PAGINATOR_TITLE));
+        ChatPaginator pagin = createPagin(args, 7, Lang.get(_PAGINATOR_TITLE));
 
         if (tenant == null) {
             pagin.addFormatted(FormatTemplate.RAW, Lang.get(_LABEL_NONE));

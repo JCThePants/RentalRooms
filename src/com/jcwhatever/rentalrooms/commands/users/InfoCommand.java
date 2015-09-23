@@ -34,12 +34,10 @@ import com.jcwhatever.nucleus.managed.messaging.ChatPaginator;
 import com.jcwhatever.nucleus.utils.text.TextUtils.FormatTemplate;
 import com.jcwhatever.rentalrooms.BillCollector;
 import com.jcwhatever.rentalrooms.Lang;
-import com.jcwhatever.rentalrooms.Msg;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.Tenant;
 import com.jcwhatever.rentalrooms.region.RentRegion;
 import com.jcwhatever.rentalrooms.region.RentRegionManager;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -86,21 +84,21 @@ public class InfoCommand extends AbstractCommand implements IExecutableCommand {
         if (specifiedRegion == null)
             throw new CommandException(Lang.get(_RENTAL_NOT_FOUND, rentalName));
 
-        ChatPaginator pagin = Msg.getPaginator(Lang.get(_PAGINATOR_TITLE, specifiedRegion.getName()));
+        ChatPaginator pagin = createPagin(args, 7, Lang.get(_PAGINATOR_TITLE, specifiedRegion.getName()));
 
-        String noneLabel = Lang.get(_LABEL_NONE);
-        String vacantLabel = Lang.get(_LABEL_VACANT);
-        String blocksLabel = Lang.get(_LABEL_BLOCKS);
+        String noneLabel = Lang.get(_LABEL_NONE).toString();
+        String vacantLabel = Lang.get(_LABEL_VACANT).toString();
+        String blocksLabel = Lang.get(_LABEL_BLOCKS).toString();
 
         String label;
 
-        label = Lang.get(_LABEL_TENANT);
+        label = Lang.get(_LABEL_TENANT).toString();
         pagin.add(label, specifiedRegion.hasTenant() ? specifiedRegion.getTenant().getPlayerName() : vacantLabel);
 
-        label = Lang.get(_LABEL_PRICE);
+        label = Lang.get(_LABEL_PRICE).toString();
         pagin.add(label, collector.formatRentPrice(specifiedRegion));
 
-        label = Lang.get(_LABEL_VOLUME);
+        label = Lang.get(_LABEL_VOLUME).toString();
         pagin.add(label, specifiedRegion.getInteriorVolume() + " " + blocksLabel);
 
 
@@ -111,7 +109,7 @@ public class InfoCommand extends AbstractCommand implements IExecutableCommand {
             RentRegion standingRegion = regionManager.get(p.getLocation());
             pagin.add(Lang.get(_STANDING_IN), standingRegion != null ? standingRegion.getName() : Lang.get(_NO_REGION_HERE));
 
-            pagin.addFormatted(FormatTemplate.RAW, ChatColor.GREEN + Lang.get(_YOUR_RENTALS));
+            pagin.addFormatted(FormatTemplate.RAW, ChatColor.GREEN + Lang.get(_YOUR_RENTALS).toString());
 
             Tenant tenant = Tenant.get(p);
             if (tenant == null) {
@@ -124,7 +122,7 @@ public class InfoCommand extends AbstractCommand implements IExecutableCommand {
                 }
                 else {
 
-                    String desc = Lang.get(_DESCRIPTION);
+                    String desc = Lang.get(_DESCRIPTION).toString();
                     for (RentRegion region : regions) {
                         pagin.add(region.getName(), desc, collector.formatRentPrice(region), collector.getRentCycle());
                     }

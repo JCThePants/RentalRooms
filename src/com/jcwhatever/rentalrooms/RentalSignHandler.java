@@ -102,7 +102,7 @@ public class RentalSignHandler extends SignHandler {
 
     @Override
     public String getDescription() {
-        return Lang.get(_DESCRIPTION);
+        return Lang.get(_DESCRIPTION).toString();
     }
 
     @Override
