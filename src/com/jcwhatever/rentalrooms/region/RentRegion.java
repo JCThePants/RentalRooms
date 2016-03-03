@@ -24,7 +24,11 @@
 
 package com.jcwhatever.rentalrooms.region;
 
+import com.jcwhatever.nucleus.managed.astar.AStar;
+import com.jcwhatever.nucleus.managed.astar.interior.IInteriorFinderResult;
+import com.jcwhatever.nucleus.managed.scheduler.Scheduler;
 import com.jcwhatever.nucleus.providers.friends.FriendLevels;
+import com.jcwhatever.nucleus.providers.friends.Friends;
 import com.jcwhatever.nucleus.providers.friends.IFriend;
 import com.jcwhatever.nucleus.regions.RestorableRegion;
 import com.jcwhatever.nucleus.regions.file.IRegionFileFactory;
@@ -32,22 +36,20 @@ import com.jcwhatever.nucleus.regions.file.IRegionFileLoader.LoadSpeed;
 import com.jcwhatever.nucleus.regions.file.basic.BasicFileFactory;
 import com.jcwhatever.nucleus.storage.IDataNode;
 import com.jcwhatever.nucleus.utils.DateUtils;
-import com.jcwhatever.nucleus.providers.friends.Friends;
-import com.jcwhatever.nucleus.utils.coords.LocationUtils;
 import com.jcwhatever.nucleus.utils.MetaKey;
 import com.jcwhatever.nucleus.utils.PreCon;
-import com.jcwhatever.nucleus.managed.scheduler.Scheduler;
+import com.jcwhatever.nucleus.utils.coords.Coords3Di;
+import com.jcwhatever.nucleus.utils.coords.ICoords3Di;
+import com.jcwhatever.nucleus.utils.coords.LocationUtils;
+import com.jcwhatever.nucleus.utils.coords.MutableCoords3Di;
 import com.jcwhatever.nucleus.utils.file.BasicByteReader;
 import com.jcwhatever.nucleus.utils.file.BasicByteWriter;
-import com.jcwhatever.nucleus.utils.astar.InteriorFinder;
-import com.jcwhatever.nucleus.utils.astar.InteriorFinder.InteriorResults;
 import com.jcwhatever.rentalrooms.BillCollector;
 import com.jcwhatever.rentalrooms.Msg;
 import com.jcwhatever.rentalrooms.RentalRooms;
 import com.jcwhatever.rentalrooms.Tenant;
 import com.jcwhatever.rentalrooms.events.RentMoveInEvent;
 import com.jcwhatever.rentalrooms.events.RentMoveOutEvent;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -74,11 +76,12 @@ public class RentRegion extends RestorableRegion {
 
     private static final int INTERIOR_FILE_VERSION = 1;
     private static final Location INTERACT_LOCATION = new Location(null, 0, 0, 0);
+    private static final MutableCoords3Di COORDS_MATCHER = new MutableCoords3Di();
     
     public static final MetaKey<RentRegion> REGION_META_KEY = new MetaKey<RentRegion>(RentRegion.class);
 
     private Tenant _tenant;
-    private Set<Location> _tenantArea;
+    private Set<ICoords3Di> _tenantArea;
     private boolean _isEditModeOn = false;
     private Date _rentExpiration = null;
 
@@ -97,7 +100,7 @@ public class RentRegion extends RestorableRegion {
         PreCon.notNull(dataNode);
 
         _dataNode = dataNode;
-        _tenantArea = new HashSet<Location>(100);
+        _tenantArea = new HashSet<>(100);
 
         load();
         loadInterior();
@@ -216,7 +219,19 @@ public class RentRegion extends RestorableRegion {
      * @param location  The location to check.
      */
     public boolean isInterior(Location location) {
-        return _tenantArea.contains(location);
+        PreCon.notNull(location);
+
+        if (getWorld() == null)
+            return false;
+
+        if (!getWorld().equals(location.getWorld()))
+            return false;
+
+        COORDS_MATCHER.setX(location.getBlockX());
+        COORDS_MATCHER.setY(location.getBlockY());
+        COORDS_MATCHER.setZ(location.getBlockZ());
+
+        return _tenantArea.contains(COORDS_MATCHER);
     }
 
     /**
@@ -247,7 +262,7 @@ public class RentRegion extends RestorableRegion {
 
         location = LocationUtils.getBlockLocation(location, INTERACT_LOCATION);
 
-        if (!_tenantArea.contains(location))
+        if (!isInterior(location))
             return false;
 
         if (_tenant.getPlayerID().equals(playerId))
@@ -292,10 +307,9 @@ public class RentRegion extends RestorableRegion {
      */
     public int addInterior(Location start) {
 
-        InteriorFinder finder = new InteriorFinder();
-        InteriorResults results = finder.searchInterior(start, this);
+        IInteriorFinderResult results = AStar.searchInterior(start, this);
 
-        Set<Location> interior = results.getInterior();
+        Set<ICoords3Di> interior = results.getInterior();
         _tenantArea.addAll(interior);
 
         saveInterior();
@@ -446,7 +460,7 @@ public class RentRegion extends RestorableRegion {
 
         final RentRegion region;
         final File file;
-        List<Location> interior;
+        List<ICoords3Di> interior;
         BasicByteReader reader;
 
         LoadInterior(RentRegion region, File file) {
@@ -492,13 +506,13 @@ public class RentRegion extends RestorableRegion {
 
                 int size = reader.getInteger();
 
-                interior = new ArrayList<Location>(size + 2);
+                interior = new ArrayList<>(size + 2);
 
                 for (int i=0; i < size; i++) {
                     int x = reader.getInteger();
                     int y = reader.getInteger();
                     int z = reader.getInteger();
-                    interior.add(new Location(world, x, y, z));
+                    interior.add(new Coords3Di(x, y, z));
                 }
 
             } catch (IOException e) {
@@ -531,12 +545,12 @@ public class RentRegion extends RestorableRegion {
     private static final class SaveInterior implements Runnable {
 
         final RentRegion region;
-        final List<Location> interior;
+        final List<ICoords3Di> interior;
         final File file;
 
-        SaveInterior(RentRegion region, Set<Location> interior, File file) {
+        SaveInterior(RentRegion region, Set<ICoords3Di> interior, File file) {
             this.region = region;
-            this.interior = new ArrayList<Location>(interior);
+            this.interior = new ArrayList<>(interior);
             this.file = file;
         }
 
@@ -566,10 +580,10 @@ public class RentRegion extends RestorableRegion {
                 writer.write(region.getP2());
                 writer.write(interior.size());
 
-                for (Location loc : interior) {
-                    writer.write(loc.getBlockX());
-                    writer.write(loc.getBlockY());
-                    writer.write(loc.getBlockZ());
+                for (ICoords3Di loc : interior) {
+                    writer.write(loc.getX());
+                    writer.write(loc.getY());
+                    writer.write(loc.getZ());
                 }
 
                 writer.flush();
